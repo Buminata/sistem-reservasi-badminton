@@ -151,8 +151,8 @@ Project ini adalah open source dan tersedia di bawah lisensi MIT.
 
 Dikembangkan oleh **DzakaAl**
 
-- GitHub: [@DzakaAl](https://github.com/DzakaAl)
-- Repository: [Daddies-Arena-Badminton](https://github.com/DzakaAl/Daddies-Arena-Badminton)
+- GitHub: [@Buminata](https://github.com/buminata)
+- Repository: [Daddies-Arena-Badminton](https://github.com/buminata/sistem-reservasi-badminton)
 
 ## 📞 Support
 
