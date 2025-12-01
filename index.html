@@ -1052,11 +1052,17 @@
         // Fetch schedule berdasarkan tanggal hari ini
         function fetchSchedule(date) {
           fetch(`api/jadwal.php?date=${today}`)
-            .then((response) => {
+            .then(async (response) => {
+              // Check content type
+              const contentType = response.headers.get('content-type');
+              if (!contentType || !contentType.includes('application/json')) {
+                const text = await response.text();
+                throw new Error('Server returned non-JSON response. Please check database configuration.');
+              }
+              
               if (!response.ok) {
-                return response.json().then(err => {
-                  throw new Error(err.error || 'Failed to load schedule');
-                });
+                const err = await response.json().catch(() => ({ error: 'Failed to load schedule' }));
+                throw new Error(err.error || 'Failed to load schedule');
               }
               return response.json();
             })
@@ -1096,8 +1102,9 @@
               }
             })
             .catch((err) => {
-              scheduleTable.innerHTML = `<tr><td colspan="9" style="color: #e11d48; padding: 1rem;">
-                <i class="bi bi-exclamation-triangle"></i> ${err.message || 'Error loading schedule. Please refresh the page.'}
+              scheduleTable.innerHTML = `<tr><td colspan="9" style="color: #e11d48; padding: 1rem; text-align: center;">
+                <i class="bi bi-exclamation-triangle"></i> <strong>Error:</strong> ${err.message || 'Error loading schedule. Please check your database configuration and refresh the page.'}
+                <br><small style="color: #6b7280; margin-top: 0.5rem; display: block;">Jika error berlanjut, pastikan environment variables database sudah dikonfigurasi di Vercel.</small>
               </td></tr>`;
               console.error('Schedule error:', err);
             });

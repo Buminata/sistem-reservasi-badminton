@@ -3,16 +3,27 @@
 $allowedOrigins = [
     'http://localhost',
     'http://127.0.0.1',
-    'https://daddiesarena.com', // Ganti dengan domain production Anda
-    'https://www.daddiesarena.com'
+    'https://daddiesarena.com',
+    'https://www.daddiesarena.com',
+    'https://sistem-reservasi-badminton-daddies.vercel.app',
+    'https://sistem-reservasi-badminton.vercel.app',
+    'https://*.vercel.app' // Allow all Vercel subdomains
 ];
 
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
-if (in_array($origin, $allowedOrigins) || strpos($origin, 'localhost') !== false) {
+if (in_array($origin, $allowedOrigins) || 
+    strpos($origin, 'localhost') !== false || 
+    strpos($origin, '127.0.0.1') !== false ||
+    strpos($origin, '.vercel.app') !== false) {
     header('Access-Control-Allow-Origin: ' . $origin);
 } else {
-    // Default untuk development
-    header('Access-Control-Allow-Origin: *');
+    // Default untuk development - di production sebaiknya spesifik
+    if (getenv('APP_ENV') !== 'production') {
+        header('Access-Control-Allow-Origin: *');
+    } else {
+        // Di production, hanya allow origins yang terdaftar
+        header('Access-Control-Allow-Origin: ' . (isset($allowedOrigins[0]) ? $allowedOrigins[0] : '*'));
+    }
 }
 
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -29,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 // db.php - Database connection script dengan auto-setup
-$host = 'localhost';      // Database host (use '127.0.0.1' if 'localhost' doesn't work)
-$dbname = 'badminton';    // Your database name
-$username = 'root';       // Your database username
-$password = '';           // Your database password
+// Support environment variables untuk Vercel/Production
+$host = getenv('DB_HOST') ?: 'localhost';      // Database host
+$dbname = getenv('DB_NAME') ?: 'badminton';    // Your database name
+$username = getenv('DB_USER') ?: 'root';       // Your database username
+$password = getenv('DB_PASS') ?: '';           // Your database password
 
 // Create a PDO instance to connect to the database
 try {
@@ -176,23 +188,29 @@ try {
             
         } catch (PDOException $setupError) {
             // Jika setup gagal, return error
-            header('Content-Type: application/json');
+            // Pastikan header JSON sudah di-set di awal file
+            if (!headers_sent()) {
+                header('Content-Type: application/json');
+            }
             http_response_code(500);
             echo json_encode([
                 'error' => 'Database setup failed',
                 'message' => 'Unable to create database. Please check MySQL is running and you have proper permissions.',
-                'detail' => $setupError->getMessage()
+                'detail' => (getenv('APP_ENV') === 'development' ? $setupError->getMessage() : 'Database connection error')
             ]);
             exit;
         }
     } else {
         // Error lain selain database tidak ada
-        header('Content-Type: application/json');
+        // Pastikan header JSON sudah di-set di awal file
+        if (!headers_sent()) {
+            header('Content-Type: application/json');
+        }
         http_response_code(500);
         echo json_encode([
             'error' => 'Database connection failed',
             'message' => 'Unable to connect to database. Please check your configuration.',
-            'detail' => $e->getMessage()
+            'detail' => (getenv('APP_ENV') === 'development' ? $e->getMessage() : 'Database connection error')
         ]);
         exit;
     }
