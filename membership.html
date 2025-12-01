@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Membership - Daddies Arena Badminton</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      body {
+        background-image: url('gambar/backgroud.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        font-family: "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        color: #064e3b;
+        position: relative;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(244, 248, 251, 0.85);
+        z-index: -1;
+      }
+      header.shadow-sm {
+        background: linear-gradient(90deg, #10b981 60%, #003366 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      main {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12);
+      }
+      .membership-card {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+      }
+      .membership-card h2 {
+        color: #064e3b;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+      .benefit-list {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+        max-width: 600px;
+        margin: 1.5rem auto;
+      }
+      .benefit-list li {
+        padding: 0.8rem 0;
+        padding-left: 2.5rem;
+        position: relative;
+        color: #065f46;
+        font-size: 1.05rem;
+      }
+      .benefit-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      .price {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #10b981;
+        margin: 1.5rem 0;
+      }
+      .btn-join {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+      }
+      .btn-join:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      }
+      .status-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1);
+        border: 2px solid #d1fae5;
+      }
+      .status-active {
+        color: #10b981;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      .status-expired {
+        color: #ef4444;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      .status-pending {
+        color: #f59e0b;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 3000;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: auto;
+        background: rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-content {
+        background: #fff;
+        margin: auto;
+        padding: 2.5rem 2.5rem 2rem 2.5rem;
+        border-radius: 22px;
+        box-shadow: 0 8px 32px rgba(51, 153, 255, 0.14);
+        min-width: 400px;
+        max-width: 600px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .modal-content h3 {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 1.2rem;
+        letter-spacing: 0.5px;
+      }
+      .form-group {
+        margin-bottom: 1.2rem;
+        text-align: left;
+      }
+      .form-group label {
+        font-weight: 600;
+        color: #064e3b;
+        margin-bottom: 0.4rem;
+        display: block;
+      }
+      .form-group select,
+      .form-group input[type="time"],
+      .form-group input[type="file"] {
+        width: 100%;
+        padding: 0.6rem 1rem;
+        border: 1px solid #d1fae5;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #f0fdf4;
+        color: #064e3b;
+      }
+      .rekening-box {
+        background: #f0fdf4;
+        border: 2px solid #10b981;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+      .rekening-box div {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .bank-icon {
+        font-size: 1.2rem;
+        color: #10b981;
+      }
+      .toast-message {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+        text-align: center;
+        display: none;
+        z-index: 10000;
+      }
+      .toast-message.success {
+        background: #e6ffed;
+        color: #1a7f37;
+        border: 1px solid #4ade80;
+      }
+      .toast-message.error {
+        background: #fff0f0;
+        color: #c82333;
+        border: 1px solid #f87171;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shadow-sm">
+      <div class="container-fluid d-flex align-items-center justify-content-between py-2 px-3">
+        <div class="d-flex align-items-center gap-3">
+          <img src="gambar/logo daddies.jpg" alt="Logo" style="height: 40px; border-radius: 8px;" />
+          <span class="fw-bold fs-5 text-white">Daddies Arena Badminton</span>
+        </div>
+        <nav>
+          <ul class="d-flex gap-3 mb-0 list-unstyled align-items-center">
+            <li><a href="index.html" class="nav-link text-white fw-semibold px-2 py-1">Beranda</a></li>
+            <li><a href="jadwal.html" class="nav-link text-white fw-semibold px-2 py-1">Jadwal</a></li>
+            <li><a href="reservasi.html" class="nav-link text-white fw-semibold px-2 py-1">Reservasi</a></li>
+            <li><a href="riwayat.html" class="nav-link text-white fw-semibold px-2 py-1">Riwayat</a></li>
+            <li><a href="membership.html" class="nav-link text-white fw-semibold px-2 py-1 active">Membership</a></li>
+            <li id="loginLogoutNav">
+              <a href="login.html" class="nav-link text-white fw-semibold px-2 py-1" id="loginLogoutLink">Login</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <h1 class="mb-4" style="color: #064e3b; font-weight: 800;">
+        <i class="bi bi-star-fill me-2" style="color: #facc15;"></i>Membership
+      </h1>
+
+      <div id="membershipStatus"></div>
+
+      <div class="membership-card">
+        <h2>🎯 Gabung Membership Sekarang!</h2>
+        <p class="text-muted mb-4">Dapatkan akses eksklusif dan benefit menarik</p>
+        
+        <div class="price" id="membershipPriceDisplay">
+          Mulai dari Rp 256.000<span style="font-size: 1rem; color: #065f46;">/bulan</span>
+          <div style="font-size: 0.9rem; color: #065f46; margin-top: 0.5rem; font-weight: 400;">
+            (Harga bervariasi sesuai hari & jam yang dipilih)
+          </div>
+        </div>
+        
+        <ul class="benefit-list">
+          <li>Booking hari dan jam yang sama selama 4x dalam sebulan</li>
+          <li>Diskon 20% dari harga reservasi normal</li>
+          <li>Prioritas booking untuk member</li>
+          <li>Akses ke fasilitas eksklusif</li>
+          <li>Notifikasi promo khusus member</li>
+        </ul>
+
+        <button class="btn-join" id="btnJoinMembership">
+          <i class="bi bi-star-fill me-2"></i>Gabung Membership
+        </button>
+      </div>
+    </main>
+
+    <!-- Modal Pembayaran Membership -->
+    <div id="modalPembayaran" class="modal" style="display: none">
+      <div class="modal-content">
+        <h3>
+          <i class="bi bi-credit-card-2-front me-2 text-primary"></i>
+          Form Pembayaran Membership
+        </h3>
+        <div class="rekening-box mb-3">
+          <div>
+            <span class="bank-icon"><i class="bi bi-bank2"></i></span>
+            <strong>Bank:</strong> BCA
+          </div>
+          <div>
+            <span class="bank-icon"><i class="bi bi-123"></i></span>
+            <strong>No. Rekening:</strong> 1234567890
+          </div>
+          <div>
+            <span class="bank-icon"><i class="bi bi-person-badge"></i></span>
+            <strong>Atas Nama:</strong> Daddies Arena Badminton
+          </div>
+          <div>
+            <span class="bank-icon"><i class="bi bi-cash-coin"></i></span>
+            <strong>Total Pembayaran:</strong> <span id="totalPembayaranDisplay">Rp 0</span>
+          </div>
+        </div>
+        <form id="formPembayaranMembership">
+          <div class="form-group">
+            <label for="hariMembership">Hari <span class="text-danger">*</span></label>
+            <select id="hariMembership" name="hari" required>
+              <option value="">Pilih Hari</option>
+              <option value="Senin">Senin</option>
+              <option value="Selasa">Selasa</option>
+              <option value="Rabu">Rabu</option>
+              <option value="Kamis">Kamis</option>
+              <option value="Jumat">Jumat</option>
+              <option value="Sabtu">Sabtu</option>
+              <option value="Minggu">Minggu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="jamMembership">Jam <span class="text-danger">*</span></label>
+            <input type="time" id="jamMembership" name="jam" required>
+          </div>
+          <div class="form-group">
+            <label for="lapanganMembership">Lapangan <span class="text-danger">*</span></label>
+            <select id="lapanganMembership" name="lapangan" required>
+              <option value="">Pilih Lapangan</option>
+              <option value="Lapangan 1">Lapangan 1</option>
+              <option value="Lapangan 2">Lapangan 2</option>
+              <option value="Lapangan 3">Lapangan 3</option>
+              <option value="Lapangan 4">Lapangan 4</option>
+              <option value="Lapangan 5">Lapangan 5</option>
+              <option value="Lapangan 6">Lapangan 6</option>
+              <option value="Lapangan 7">Lapangan 7</option>
+              <option value="Lapangan 8">Lapangan 8</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="buktiPembayaranMembership">Upload Bukti Pembayaran <span class="text-danger">*</span></label>
+            <input
+              type="file"
+              id="buktiPembayaranMembership"
+              name="bukti_pembayaran"
+              accept="image/*"
+              required
+            />
+          </div>
+          <div class="d-flex justify-content-center gap-2 mt-3">
+            <button type="submit" class="btn-join" style="padding: 0.8rem 2rem;">
+              <i class="bi bi-upload me-1"></i>Kirim Pembayaran
+            </button>
+            <button
+              type="button"
+              id="batalPembayaranMembership"
+              class="btn btn-outline-secondary"
+              style="padding: 0.8rem 2rem;"
+            >
+              Batal
+            </button>
+          </div>
+        </form>
+        <div style="font-size: 0.98rem; color: #888; margin-top: 1.2rem">
+          Setelah pembayaran dan upload bukti, membership Anda akan segera diproses oleh admin.
+        </div>
+      </div>
+    </div>
+
+    <div id="message" class="toast-message"></div>
+
+    <script>
+      // Cek login status
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("api/check.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const loginLogoutLink = document.getElementById("loginLogoutLink");
+            if (data.loggedIn) {
+              loginLogoutLink.textContent = "Logout";
+              loginLogoutLink.href = "logout.php";
+              loginLogoutLink.onclick = function () {
+                window.location.href = "logout.php";
+                return false;
+              };
+              
+              // Load membership status
+              loadMembershipStatus();
+            } else {
+              loginLogoutLink.textContent = "Login";
+              loginLogoutLink.href = "login.html";
+              loginLogoutLink.onclick = null;
+              
+              // Redirect ke login jika belum login
+              window.location.href = "login.html";
+            }
+          });
+      });
+
+      function loadMembershipStatus() {
+        fetch("api/check.php")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.loggedIn && data.user_id) {
+              fetch(`api/membership.php?user_id=${data.user_id}`)
+                .then((res) => res.json())
+                .then((membership) => {
+                  const statusDiv = document.getElementById("membershipStatus");
+                  
+                  if (membership.status === 'no_membership' || !membership.membership_id) {
+                    statusDiv.innerHTML = `
+                      <div class="status-card">
+                        <h3 class="mb-3">Status Membership</h3>
+                        <p class="text-muted">Anda belum memiliki membership aktif.</p>
+                      </div>
+                    `;
+                    document.getElementById("btnJoinMembership").style.display = "inline-block";
+                  } else {
+                    const isActive = membership.status === 'active' && new Date(membership.tanggal_berakhir) >= new Date();
+                    const isPending = membership.status === 'pending';
+                    const isExpired = membership.status === 'expired';
+                    const statusClass = isActive ? 'status-active' : (isPending ? 'status-pending' : 'status-expired');
+                    const statusText = isActive ? 'Aktif' : (isPending ? 'Menunggu Konfirmasi' : 'Kedaluwarsa');
+                    
+                    statusDiv.innerHTML = `
+                      <div class="status-card">
+                        <h3 class="mb-3">Status Membership</h3>
+                        <p class="${statusClass}">
+                          <i class="bi bi-${isActive ? 'check-circle' : (isPending ? 'clock' : 'x-circle')}-fill me-2"></i>
+                          ${statusText}
+                        </p>
+                        ${membership.hari ? `<p><strong>Hari:</strong> ${membership.hari}</p>` : ''}
+                        ${membership.jam ? `<p><strong>Jam:</strong> ${membership.jam.substring(0, 5)}</p>` : ''}
+                        ${membership.lapangan ? `<p><strong>Lapangan:</strong> ${membership.lapangan}</p>` : ''}
+                        <p><strong>Tanggal Mulai:</strong> ${new Date(membership.tanggal_mulai).toLocaleDateString('id-ID')}</p>
+                        <p><strong>Tanggal Berakhir:</strong> ${new Date(membership.tanggal_berakhir).toLocaleDateString('id-ID')}</p>
+                        <p><strong>Harga:</strong> Rp ${Number(membership.harga_membership || 0).toLocaleString('id-ID')}</p>
+                        ${isPending ? '<p class="text-warning"><i class="bi bi-info-circle"></i> Membership Anda sedang menunggu konfirmasi admin.</p>' : ''}
+                        ${isExpired ? '<p class="text-danger"><i class="bi bi-exclamation-triangle"></i> Membership Anda telah kedaluwarsa. Silakan perpanjang membership untuk melanjutkan benefit.</p>' : ''}
+                      </div>
+                    `;
+                    
+                    if (isActive || isPending) {
+                      document.getElementById("btnJoinMembership").style.display = "none";
+                    } else {
+                      document.getElementById("btnJoinMembership").style.display = "inline-block";
+                    }
+                  }
+                  
+                  // Cek notifikasi expired
+                  checkExpiredNotification();
+                })
+                .catch((error) => {
+                  console.error("Error loading membership:", error);
+                });
+            }
+          });
+      }
+      
+      function checkExpiredNotification() {
+        fetch('api/member-notification.php')
+          .then(res => res.json())
+          .then(data => {
+            if (data.has_notification && data.type === 'expired') {
+              // Tampilkan notifikasi popup
+              showExpiredNotification(data.message);
+            }
+          })
+          .catch(error => {
+            console.error('Error checking notification:', error);
+          });
+      }
+      
+      function showExpiredNotification(message) {
+        // Cek apakah sudah ditampilkan di session ini
+        if (sessionStorage.getItem('expiredNotificationShown')) {
+          return;
+        }
+        
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+          color: #fff;
+          padding: 1.5rem 2rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+          z-index: 10000;
+          max-width: 400px;
+          animation: slideInRight 0.3s ease-out;
+        `;
+        notification.innerHTML = `
+          <div style="display: flex; align-items: start; gap: 1rem;">
+            <div style="font-size: 2rem;">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem;">
+                Membership Kedaluwarsa
+              </div>
+              <div style="font-size: 0.95rem; opacity: 0.95;">
+                ${message}
+              </div>
+              <div style="font-size: 0.85rem; opacity: 0.9; margin-top: 0.5rem;">
+                Silakan perpanjang membership untuk melanjutkan benefit.
+              </div>
+            </div>
+            <button class="btn-close-notif" style="background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; opacity: 0.7; padding: 0;">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(notification);
+        sessionStorage.setItem('expiredNotificationShown', 'true');
+        
+        // Auto remove setelah 10 detik
+        const autoRemove = setTimeout(() => {
+          if (notification.parentNode) {
+            notification.style.animation = 'slideOutRight 0.3s ease-out';
+            setTimeout(() => {
+              if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+              }
+            }, 300);
+          }
+        }, 10000);
+        
+        // Close button
+        notification.querySelector('.btn-close-notif').onclick = function() {
+          clearTimeout(autoRemove);
+          notification.style.animation = 'slideOutRight 0.3s ease-out';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        };
+        
+        // CSS Animation
+        if (!document.getElementById('expired-notification-styles')) {
+          const style = document.createElement('style');
+          style.id = 'expired-notification-styles';
+          style.textContent = `
+            @keyframes slideInRight {
+              from {
+                transform: translateX(100%);
+                opacity: 0;
+              }
+              to {
+                transform: translateX(0);
+                opacity: 1;
+              }
+            }
+            @keyframes slideOutRight {
+              from {
+                transform: translateX(0);
+                opacity: 1;
+              }
+              to {
+                transform: translateX(100%);
+                opacity: 0;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+
+      document.getElementById("btnJoinMembership").addEventListener("click", function() {
+        document.getElementById("modalPembayaran").style.display = "flex";
+        // Reset form dan harga
+        document.getElementById("formPembayaranMembership").reset();
+        document.getElementById('totalPembayaranDisplay').textContent = 'Rp 0';
+      });
+
+      document.getElementById("batalPembayaranMembership").addEventListener("click", function() {
+        document.getElementById("modalPembayaran").style.display = "none";
+        // Reset harga display
+        document.getElementById('totalPembayaranDisplay').textContent = 'Rp 0';
+      });
+
+      window.onclick = function (event) {
+        if (event.target == document.getElementById("modalPembayaran")) {
+          document.getElementById("modalPembayaran").style.display = "none";
+          // Reset harga display
+          document.getElementById('totalPembayaranDisplay').textContent = 'Rp 0';
+        }
+      };
+
+      // Fungsi untuk menghitung harga membership berdasarkan hari dan jam
+      function calculateMembershipPrice(hari, jam) {
+        // Mapping hari Indonesia ke JavaScript day of week
+        const hariMap = {
+          'Senin': 1,
+          'Selasa': 2,
+          'Rabu': 3,
+          'Kamis': 4,
+          'Jumat': 5,
+          'Sabtu': 6,
+          'Minggu': 0
+        };
+        
+        if (!hariMap.hasOwnProperty(hari)) {
+          return 200000; // Default fallback
+        }
+        
+        const dayOfWeek = hariMap[hari];
+        const jamInt = parseInt(jam.split(':')[0]);
+        
+        // Hitung harga dasar berdasarkan hari dan jam
+        let basePrice = 0;
+        
+        // Sabtu (6) atau Minggu (0)
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+          // Sabtu dan Minggu: 100rb untuk semua jam (07:00-23:00)
+          basePrice = 100000;
+        } else {
+          // Senin-Jumat
+          if (jamInt >= 7 && jamInt < 17) {
+            // 07:00-16:59 = 80rb
+            basePrice = 80000;
+          } else if (jamInt >= 17 && jamInt <= 23) {
+            // 17:00-23:59 = 100rb
+            basePrice = 100000;
+          } else {
+            // Diluar jam operasional, default 80rb
+            basePrice = 80000;
+          }
+        }
+        
+        // Harga membership = (harga dasar × 4) - diskon 20%
+        // 4x booking dalam sebulan
+        const totalBasePrice = basePrice * 4;
+        
+        // Apply diskon 20%
+        const membershipPrice = totalBasePrice * 0.8;
+        
+        return membershipPrice;
+      }
+      
+      // Update harga saat hari atau jam berubah
+      function updateMembershipPrice() {
+        const hari = document.getElementById('hariMembership').value;
+        const jam = document.getElementById('jamMembership').value;
+        
+        if (hari && jam) {
+          const price = calculateMembershipPrice(hari, jam);
+          const totalDisplay = document.getElementById('totalPembayaranDisplay');
+          
+          // Update harga di modal
+          totalDisplay.textContent = `Rp ${price.toLocaleString('id-ID')}`;
+        } else {
+          document.getElementById('totalPembayaranDisplay').textContent = 'Rp 0';
+        }
+      }
+      
+      // Event listeners untuk update harga
+      document.getElementById('hariMembership').addEventListener('change', updateMembershipPrice);
+      document.getElementById('jamMembership').addEventListener('change', updateMembershipPrice);
+
+      document.getElementById("formPembayaranMembership").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const hari = document.getElementById('hariMembership').value;
+        const jam = document.getElementById('jamMembership').value;
+        const lapangan = document.getElementById('lapanganMembership').value;
+        
+        if (!hari || !jam || !lapangan) {
+          showMessage('error', 'Silakan lengkapi semua field yang wajib diisi.');
+          return;
+        }
+        
+        // Hitung harga membership
+        const harga = calculateMembershipPrice(hari, jam);
+
+        const formData = new FormData();
+        formData.append('hari', hari);
+        formData.append('jam', jam);
+        formData.append('lapangan', lapangan);
+        formData.append('harga', harga);
+        
+        const buktiFile = document.getElementById('buktiPembayaranMembership').files[0];
+        if (!buktiFile) {
+          showMessage('error', 'Silakan upload bukti pembayaran.');
+          return;
+        }
+        formData.append('bukti_pembayaran', buktiFile);
+
+        try {
+          const response = await fetch("api/membership.php", {
+            method: "POST",
+            body: formData
+          });
+
+          const data = await response.json();
+          
+          if (data.success) {
+            showMessage('success', data.message || 'Membership berhasil dibuat. Menunggu konfirmasi admin.');
+            document.getElementById("modalPembayaran").style.display = "none";
+            document.getElementById("formPembayaranMembership").reset();
+            setTimeout(() => {
+              loadMembershipStatus();
+            }, 1000);
+          } else {
+            showMessage('error', data.error || 'Gagal membuat membership');
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showMessage('error', 'Terjadi kesalahan saat membuat membership');
+        }
+      });
+
+      function showMessage(type, text, duration = 3500) {
+        const msg = document.getElementById("message");
+        msg.className = "toast-message " + (type === "success" ? "success" : "error");
+        msg.innerHTML = `<span>${text}</span>`;
+        msg.style.display = "block";
+        clearTimeout(msg.hideTimeout);
+        msg.hideTimeout = setTimeout(() => {
+          msg.style.display = "none";
+        }, duration);
+      }
+    </script>
+  </body>
+</html>

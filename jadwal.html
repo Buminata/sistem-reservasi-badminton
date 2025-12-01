@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jadwal Lapangan - Daddies Arena Badminton</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      body {
+        background-image: url('gambar/backgroud.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+        color: #064e3b;
+        font-family: "Segoe UI", Arial, sans-serif;
+        position: relative;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(244, 248, 251, 0.85);
+        z-index: -1;
+      }
+      header.shadow-sm {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      header .container-fluid {
+        padding: 0.5rem 1rem;
+      }
+      header .nav-link {
+        border-radius: 6px;
+        transition: background 0.15s, color 0.15s;
+      }
+      header .nav-link:hover {
+        background: #fff !important;
+        color: #064e3b !important;
+        font-weight: 700;
+      }
+      footer {
+        background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 0 1rem 0;
+        margin-top: 2rem;
+        border-radius: 18px 18px 0 0;
+        font-size: 1rem;
+        box-shadow: 0 -4px 20px rgba(6, 78, 59, 0.2);
+      }
+      @media (max-width: 767.98px) {
+        header .container-fluid {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+        }
+        header nav ul {
+          gap: 0.5rem;
+        }
+        header .fw-bold.fs-5 {
+          font-size: 1.1rem !important;
+        }
+      }
+      main {
+        max-width: 1100px;
+        margin: 2.5rem auto 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12);
+        padding: 2.5rem 2rem 2rem 2rem;
+      }
+      .jadwal-section h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .jadwal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .tanggal-navigasi {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+      }
+      #tanggal-jadwal {
+        min-width: 120px;
+        text-align: center;
+        font-weight: 600;
+        color: #064e3b;
+      }
+      .jadwal-table th,
+      .jadwal-table td {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1rem;
+      }
+      .jadwal-table th {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        font-weight: 600;
+      }
+      .jadwal-table tr:last-child td {
+        border-bottom: 2px solid #10b981;
+      }
+      .jadwal-table .lapangan-header {
+        background: #d1fae5;
+        color: #064e3b;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      .jadwal-table .reserved {
+        background: #4ade80 !important;
+        color: #064e3b !important;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        border-radius: 8px;
+        box-shadow: none;
+        padding: 0.4em 0.5em;
+        transition: background 0.2s;
+      }
+      .jadwal-table .empty {
+        background: #fff;
+        color: #bbb;
+      }
+      .jadwal-table .jam-col {
+        background: #f8fafc;
+        color: #064e3b;
+        font-weight: 500;
+        width: 80px;
+      }
+      .booking-closed {
+        color: #bbb;
+        font-style: italic;
+        font-size: 0.98rem;
+      }
+      .reserve-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.4em 1.4em;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
+        transition: all 0.3s ease;
+        display: inline-block;
+        letter-spacing: 0.3px;
+      }
+      .reserve-btn:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 16px rgba(16, 185, 129, 0.45);
+      }
+      @media (max-width: 991.98px) {
+        main {
+          padding: 1.2rem 0.2rem;
+        }
+      }
+      @media (max-width: 767.98px) {
+        main {
+          padding: 0.7rem 0.2rem;
+        }
+        .jadwal-table th,
+        .jadwal-table td {
+          font-size: 0.92rem;
+          padding: 0.4rem 0.2rem;
+        }
+        .jadwal-table .jam-col {
+          width: 60px;
+        }
+        .jadwal-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header modern dan rapi -->
+    <header class="shadow-sm">
+      <div class="container-fluid d-flex align-items-center justify-content-between py-2 px-3 flex-wrap">
+        <div class="d-flex align-items-center gap-2">
+          <img
+            src="gambar/logo daddies.jpg"
+            alt="Daddies Arena Logo"
+            style="
+              width: 40px;
+              height: 40px;
+              object-fit: contain;
+            "
+          />
+          <span class="fw-bold fs-5 ms-2">Daddies Arena Badminton</span>
+        </div>
+        <nav>
+          <ul
+            class="d-flex gap-3 mb-0 list-unstyled align-items-center"
+            id="navbarMenu"
+          >
+            <li>
+              <a
+                href="index.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="jadwal.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Jadwal</a
+              >
+            </li>
+            <li>
+              <a
+                href="riwayat.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Riwayat</a
+              >
+            </li>
+            <li>
+              <a
+                href="about.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Tentang Kami</a
+              >
+            </li>
+            <li id="loginLogoutNav">
+              <a
+                href="login.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                id="loginLogoutLink"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="jadwal-section">
+        <div class="jadwal-header">
+          <h2 class="mb-0">
+            <i class="bi bi-clock-history" style="color: #10b981;"></i>
+            Jadwal Lapangan
+          </h2>
+          <div class="tanggal-navigasi">
+            <button class="btn btn-sm" id="prev-day" title="Hari Sebelumnya" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: #fff;">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <span id="tanggal-jadwal"></span>
+            <button class="btn btn-sm" id="next-day" title="Hari Berikutnya" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: #fff;">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+            <button class="btn btn-sm ms-2" id="today-btn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; color: #fff;">
+              Hari Ini
+            </button>
+          </div>
+        </div>
+        <div class="card card-jadwal border-0 shadow-sm mb-4">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table jadwal-table mb-0">
+                <thead>
+                  <tr>
+                    <th class="jam-col">Jam</th>
+                    <th class="lapangan-header">Lapangan 1</th>
+                    <th class="lapangan-header">Lapangan 2</th>
+                    <th class="lapangan-header">Lapangan 3</th>
+                    <th class="lapangan-header">Lapangan 4</th>
+                    <th class="lapangan-header">Lapangan 5</th>
+                    <th class="lapangan-header">Lapangan 6</th>
+                    <th class="lapangan-header">Lapangan 7</th>
+                    <th class="lapangan-header">Lapangan 8</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Jadwal dinamis -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p><strong>Alamat:</strong> Jl. Cicentang Pulo, Rw. Buntu, Kec. Serpong, Kota Tangerang Selatan, Banten 15318</p>
+      <p>
+        <strong>Telepon:</strong> +62 811-2645-838 
+      </p>
+      <p>
+        &copy; 2025 Daddies Arena Badminton. All rights reserved.
+      </p>
+    </footer>
+    <script>
+      // Navbar login/logout session-based (AJAX ke backend)
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("api/check.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const loginLogoutLink = document.getElementById("loginLogoutLink");
+            if (data.loggedIn) {
+              loginLogoutLink.textContent = "Logout";
+              loginLogoutLink.href = "logout.php";
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = function () {
+                window.location.href = "logout.php";
+                return false;
+              };
+            } else {
+              loginLogoutLink.textContent = "Login";
+              loginLogoutLink.href = "login.html";
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = null;
+            }
+          });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const scheduleTable = document.querySelector(".jadwal-table tbody");
+        const tanggalJadwal = document.getElementById("tanggal-jadwal");
+        const prevDayBtn = document.getElementById("prev-day");
+        const nextDayBtn = document.getElementById("next-day");
+        const todayBtn = document.getElementById("today-btn");
+
+        // Helper untuk format tanggal ke ID
+        function formatTanggalID(date) {
+          const bulan = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+          ];
+          return `${date.getDate()} ${bulan[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        // Set tanggal hari ini
+        let currentDate = new Date();
+        updateTanggalDanJadwal();
+
+        prevDayBtn.onclick = function () {
+          currentDate.setDate(currentDate.getDate() - 1);
+          updateTanggalDanJadwal();
+        };
+        nextDayBtn.onclick = function () {
+          currentDate.setDate(currentDate.getDate() + 1);
+          updateTanggalDanJadwal();
+        };
+        todayBtn.onclick = function () {
+          currentDate = new Date();
+          updateTanggalDanJadwal();
+        };
+
+        function updateTanggalDanJadwal() {
+          tanggalJadwal.textContent = formatTanggalID(currentDate);
+          const y = currentDate.getFullYear();
+          const m = String(currentDate.getMonth() + 1).padStart(2, "0");
+          const d = String(currentDate.getDate()).padStart(2, "0");
+          const dateStr = `${y}-${m}-${d}`;
+          fetchSchedule(dateStr);
+        }
+
+        function fetchSchedule(date) {
+          fetch(`api/jadwal.php?date=${date}`)
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then(err => {
+                  throw new Error(err.error || 'Failed to load schedule');
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (!Array.isArray(data)) {
+                throw new Error('Invalid data format');
+              }
+              scheduleTable.innerHTML = "";
+              const now = new Date();
+              
+              for (let i = 7; i <= 23; i++) {
+                const jam = `${i.toString().padStart(2, "0")}:00:00`;
+                const slotDateTime = new Date(`${date}T${jam}`);
+                
+                // Skip jika waktu sudah lewat (hanya untuk hari ini atau masa lalu)
+                if (slotDateTime < now) {
+                  continue;
+                }
+                
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${jam.slice(0, 5)}</td>
+                  <td>${createReserveButton(data, jam, 1, date)}</td>
+                  <td>${createReserveButton(data, jam, 2, date)}</td>
+                  <td>${createReserveButton(data, jam, 3, date)}</td>
+                  <td>${createReserveButton(data, jam, 4, date)}</td>
+                  <td>${createReserveButton(data, jam, 5, date)}</td>
+                  <td>${createReserveButton(data, jam, 6, date)}</td>
+                  <td>${createReserveButton(data, jam, 7, date)}</td>
+                  <td>${createReserveButton(data, jam, 8, date)}</td>
+                `;
+                scheduleTable.appendChild(row);
+              }
+            })
+            .catch((error) => {
+              scheduleTable.innerHTML = `<tr><td colspan="9" style="color: #e11d48; padding: 1rem;">
+                <i class="bi bi-exclamation-triangle"></i> ${error.message || 'Error loading schedule. Please refresh the page.'}
+              </td></tr>`;
+              console.error('Schedule error:', error);
+            });
+        }
+
+        function createReserveButton(data, jam, court, date) {
+          const reservedSlot = data.find(
+            (item) => item.time === jam && item.court == court
+          );
+          
+          if (reservedSlot && reservedSlot.reserved) {
+            return `<div class="reserved">${reservedSlot.reserved}</div>`;
+          } else {
+            return `<a class="reserve-btn" href="reservasi.html?date=${date}&time=${jam}&lapangan=${court}">Booking</a>`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

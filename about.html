@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tentang Kami</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      body {
+        background-image: url('gambar/backgroud.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        font-family: "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        color: #064e3b;
+        position: relative;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(240, 253, 244, 0.85);
+        z-index: -1;
+      }
+      header.shadow-sm {
+        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      }
+      header .container-fluid {
+        padding: 0.5rem 1rem;
+      }
+      header .nav-link {
+        border-radius: 6px;
+        transition: background 0.15s, color 0.15s;
+      }
+      header .nav-link:hover {
+        background: #fff !important;
+        color: #059669 !important;
+        font-weight: 700;
+      }
+      @media (max-width: 767.98px) {
+        header .container-fluid {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+        }
+        header nav ul {
+          gap: 0.5rem;
+        }
+        header .fw-bold.fs-5 {
+          font-size: 1.1rem !important;
+        }
+      }
+      main {
+        max-width: 800px;
+        margin: 3.5rem auto 0 auto;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12);
+        padding: 3rem 2.5rem 2.5rem 2.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .about-section h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 2rem;
+        text-align: center;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .about-content {
+        font-size: 1.13rem;
+        color: #065f46;
+        line-height: 1.8;
+        margin-bottom: 2.2rem;
+        text-align: justify;
+      }
+      .about-values {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-radius: 16px;
+        padding: 1.5rem 1.2rem;
+        margin-bottom: 2.2rem;
+        color: #064e3b;
+        font-size: 1.08rem;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+        border-left: 6px solid #10b981;
+      }
+      .about-values h5 {
+        font-weight: 700;
+        color: #059669;
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+      }
+      .about-values ul {
+        margin-bottom: 0;
+        padding-left: 1.2em;
+      }
+      .about-values li {
+        margin-bottom: 0.5em;
+        font-size: 1.05rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5em;
+      }
+      .about-values li::before {
+        content: "✔";
+        color: #22c55e;
+        font-size: 1.1em;
+        margin-right: 0.5em;
+        margin-top: 0.1em;
+      }
+      .about-contact {
+        background: linear-gradient(135deg, #f0fdf4 0%, #d1fae5 100%);
+        border-radius: 16px;
+        padding: 1.5rem 1.2rem;
+        color: #064e3b;
+        font-size: 1.08rem;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+        border-left: 6px solid #34d399;
+      }
+      .about-contact h5 {
+        font-weight: 700;
+        color: #10b981;
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+      }
+      .about-contact div {
+        margin-bottom: 0.7em;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        font-size: 1.05rem;
+      }
+      .about-contact i {
+        color: #10b981;
+        font-size: 1.2em;
+        margin-right: 0.5em;
+      }
+      .about-illustration {
+        position: absolute;
+        right: -60px;
+        bottom: -30px;
+        opacity: 0.12;
+        z-index: 0;
+        pointer-events: none;
+        width: 320px;
+        max-width: 60vw;
+        user-select: none;
+      }
+      @media (max-width: 991.98px) {
+        main {
+          padding: 1.5rem 0.7rem 1.2rem 0.7rem;
+        }
+        .about-illustration {
+          display: none;
+        }
+      }
+      @media (max-width: 767.98px) {
+        main {
+          padding: 1rem 0.2rem 0.7rem 0.2rem;
+        }
+        .about-section h2 {
+          font-size: 1.2rem;
+        }
+      }
+      footer {
+        flex-shrink: 0;
+        background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 0 1rem 0;
+        margin-top: 2rem;
+        border-radius: 18px 18px 0 0;
+        font-size: 1rem;
+        box-shadow: 0 -4px 20px rgba(6, 78, 59, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header modern dan rapi -->
+    <header class="shadow-sm">
+      <div
+        class="container-fluid d-flex align-items-center justify-content-between py-2 px-3 flex-wrap"
+      >
+        <div class="d-flex align-items-center gap-2">
+          <img
+            src="gambar/logo daddies.jpg"
+            alt="Daddies Arena Logo"
+            style="
+              width: 40px;
+              height: 40px;
+              object-fit: contain;
+            "
+          />
+          <span class="fw-bold fs-5 ms-2">Daddies Arena Badminton</span>
+        </div>
+        <nav>
+          <ul
+            class="d-flex gap-3 mb-0 list-unstyled align-items-center"
+            id="navbarMenu"
+          >
+            <li>
+              <a
+                href="index.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="jadwal.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Jadwal</a
+              >
+            </li>
+            <li>
+              <a
+                href="riwayat.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Riwayat</a
+              >
+            </li>
+            <li>
+              <a
+                href="about.html"
+                class="nav-link text-white fw-semibold px-2 py-1 active"
+                >Tentang Kami</a
+              >
+            </li>
+            <li id="loginLogoutNav">
+              <a
+                href="login.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                id="loginLogoutLink"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="about-section position-relative">
+        <h2>
+          <i class="bi bi-info-circle me-2 text-primary"></i>
+          Tentang Daddies Arena Badminton
+        </h2>
+        <div class="about-content mb-4">
+          <p>
+            <strong>Daddies Arena Badminton</strong> adalah platform digital
+            yang memudahkan Anda melakukan pemesanan lapangan badminton secara
+            online, cepat, dan transparan. Kami hadir untuk memberikan
+            pengalaman reservasi yang modern, efisien, dan nyaman bagi seluruh
+            pecinta olahraga badminton di Indonesia.
+          </p>
+          <p>
+            Dengan sistem ini, Anda dapat melihat jadwal ketersediaan lapangan
+            secara real-time, melakukan reservasi, serta memantau status
+            pemesanan Anda kapan saja dan di mana saja.
+          </p>
+        </div>
+        <div class="about-values mb-4">
+          <h5>
+            <i class="bi bi-star-fill text-primary"></i> Nilai & Komitmen Kami
+          </h5>
+          <ul>
+            <li>
+              <strong>Kemudahan:</strong> Proses reservasi yang sederhana dan
+              mudah digunakan.
+            </li>
+            <li>
+              <strong>Transparansi:</strong> Jadwal dan status lapangan selalu
+              terupdate.
+            </li>
+            <li>
+              <strong>Keamanan:</strong> Data dan transaksi Anda terjaga dengan
+              baik.
+            </li>
+            <li>
+              <strong>Dukungan:</strong> Tim kami siap membantu Anda jika
+              mengalami kendala.
+            </li>
+          </ul>
+        </div>
+        <div class="about-contact">
+          <h5><i class="bi bi-telephone text-primary"></i> Kontak Kami</h5>
+          <div>
+            <i class="bi bi-geo-alt-fill"></i> Jl. Cicentang Pulo, Rw. Buntu, Kec. Serpong, Kota Tangerang Selatan, Banten 15318
+          </div>
+          <div><i class="bi bi-telephone-fill"></i> +62 811-2645-838</div>
+          <div>
+            <i class="bi bi-envelope-fill"></i> info@daddiesarenabadminton.com
+          </div>
+        </div>
+        <img
+          src="https://cdn.pixabay.com/photo/2016/03/31/19/14/badminton-1294365_1280.png"
+          alt="Badminton Illustration"
+          class="about-illustration"
+          loading="lazy"
+        />
+      </section>
+    </main>
+
+    <footer>
+      <p><strong>Alamat:</strong> Jl. Cicentang Pulo, Rw. Buntu, Kec. Serpong, Kota Tangerang Selatan, Banten 15318</p>
+      <p>
+        <strong>Telepon:</strong> +62 811-2645-838 
+      </p>
+      <p>
+        &copy; 2025 Daddies Arena Badminton. All rights reserved.
+      </p>
+    </footer>
+    <script>
+      // Navbar login/logout session-based (AJAX ke backend)
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("api/check.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const loginLogoutLink = document.getElementById("loginLogoutLink");
+            if (data.loggedIn) {
+              loginLogoutLink.textContent = "Logout";
+              loginLogoutLink.href = "logout.php";
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = function () {
+                window.location.href = "logout.php";
+                return false;
+              };
+            } else {
+              loginLogoutLink.textContent = "Login";
+              loginLogoutLink.href = "login.html";
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = null;
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

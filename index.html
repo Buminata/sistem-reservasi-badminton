@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daddies Arena Badminton</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <style>
+      body {
+        background-image: url('gambar/backgroud.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        font-family: "Segoe UI", Arial, sans-serif;
+        min-height: 100vh;
+        color: #064e3b;
+        position: relative;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(240, 253, 244, 0.85);
+        z-index: -1;
+      }
+      header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        color: #fff;
+        padding: 0.5rem 0 0.5rem 0;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      nav ul {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      nav a {
+        color: #fff;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 1.1rem;
+        padding: 6px 16px;
+        border-radius: 8px;
+        transition: background 0.15s, color 0.15s;
+      }
+      nav a:hover,
+      nav a.active {
+        background: #fff;
+        color: #059669;
+        font-weight: 600;
+      }
+      main {
+        max-width: 1100px;
+        margin: 2.5rem auto 0 auto;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12);
+        padding: 2.5rem 2rem 2rem 2rem;
+        border: 1px solid rgba(16, 185, 129, 0.1);
+      }
+      .hero {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+        border-radius: 20px;
+        padding: 3rem 2.5rem;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
+        border: 2px solid rgba(16, 185, 129, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+        animation: pulse 4s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 0.8; }
+      }
+      .hero h2 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        line-height: 1.3;
+      }
+      .hero p {
+        font-size: 1.1rem;
+        color: #065f46;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 1;
+        font-weight: 500;
+        line-height: 1.7;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      @media (max-width: 768px) {
+        .hero {
+          padding: 2rem 1.5rem;
+        }
+        .hero h2 {
+          font-size: 1.8rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+      }
+      .hero .button {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        padding: 0.9rem 2.5rem;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+        letter-spacing: 0.5px;
+      }
+      .hero .button:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      }
+      .schedule {
+        margin-bottom: 2.5rem;
+      }
+      .schedule h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .schedule .card {
+        border: none;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.15);
+      }
+      .schedule .card-header {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        font-weight: 700;
+        border-bottom: 3px solid rgba(255,255,255,0.2);
+        padding: 1.2rem;
+        font-size: 1.25rem;
+        letter-spacing: 0.5px;
+      }
+      .schedule .card-body {
+        padding: 0;
+      }
+      .schedule table {
+        width: 100%;
+        margin-bottom: 1rem;
+        border-collapse: collapse;
+      }
+      .schedule th,
+      .schedule td {
+        text-align: center;
+        padding: 0.7rem 0.3rem;
+        font-size: 1rem;
+        border-bottom: 1px solid #eaf6ff;
+      }
+      .schedule tr:last-child td {
+        border-bottom: 2px solid #3399ff;
+      }
+      .reserve-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 0.4em 1.4em;
+        font-size: 1rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 3px 12px rgba(16, 185, 129, 0.35);
+        transition: all 0.3s ease;
+        display: inline-block;
+        letter-spacing: 0.3px;
+      }
+      .reserve-btn:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(16, 185, 129, 0.45);
+      }
+        transform: translateY(-2px);
+        box-shadow: 0 5px 16px rgba(16, 185, 129, 0.45);
+      }
+      .booking-closed {
+        color: #bbb;
+        font-style: italic;
+        font-size: 0.98rem;
+      }
+      .reserved {
+        color: #fff;
+        background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        border-radius: 10px;
+        padding: 0.3em 1.2em;
+        font-weight: 700;
+        font-size: 1rem;
+        box-shadow: 0 3px 12px rgba(52, 211, 153, 0.35);
+        display: inline-block;
+        letter-spacing: 0.3px;
+      }
+      .gallery {
+        margin-bottom: 2.5rem;
+      }
+      .gallery h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 1rem;
+      }
+      .gallery-images {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .gallery-images img {
+        width: 210px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+        border: 3px solid #d1fae5;
+        background: #fff;
+        transition: all 0.3s ease;
+      }
+      .gallery-images img:hover {
+        transform: scale(1.05) translateY(-4px);
+        border-color: #10b981;
+        box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      }
+      .facilities {
+        margin-bottom: 2.5rem;
+      }
+      .facilities h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 1.2rem;
+      }
+      .facility {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+        padding: 1.5rem 1.2rem;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        transition: all 0.3s ease;
+      }
+      .facility:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.2);
+      }
+      .facility img {
+        width: 100px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px #3399ff22;
+        background: #fff;
+      }
+      .facility h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #064e3b;
+        margin-bottom: 0.3rem;
+        margin-top: 0;
+      }
+      .facility p {
+        margin: 0;
+        color: #065f46;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .map {
+        margin-bottom: 2.5rem;
+      }
+      .map h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 0.7rem;
+      }
+      .info {
+        margin-bottom: 2.5rem;
+      }
+      .info h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 0.7rem;
+      }
+      .info ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        color: #003366;
+        font-size: 1.05rem;
+      }
+      footer {
+        background: linear-gradient(135deg, #047857 0%, #065f46 100%);
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 0 1rem 0;
+        margin-top: 2rem;
+        border-radius: 18px 18px 0 0;
+        font-size: 1rem;
+        box-shadow: 0 -4px 20px rgba(6, 78, 59, 0.2);
+      }
+      @media (max-width: 991.98px) {
+        main {
+          padding: 1.2rem 0.2rem;
+        }
+        .hero {
+          padding: 1.2rem 0.5rem;
+        }
+        .gallery-images img {
+          width: 140px;
+          height: 90px;
+        }
+        .facility {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .facility img {
+          width: 80px;
+          height: 60px;
+        }
+      }
+      @media (max-width: 575.98px) {
+        main {
+          padding: 0.3rem 0.1rem;
+          max-width: 100%;
+        }
+        .hero h2 {
+          font-size: 1.2rem;
+        }
+        .gallery-images img {
+          width: 100px;
+          height: 60px;
+        }
+        .facility img {
+          width: 60px;
+          height: 40px;
+        }
+      }
+      /* Tambahkan style agar mirip jadwal-lapangan.html */
+      .jadwal-table th,
+      .jadwal-table td {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 1rem;
+      }
+      .jadwal-table th {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+      .jadwal-table tr:last-child td {
+        border-bottom: 3px solid #10b981;
+      }
+      .jadwal-table .lapangan-header {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        color: #064e3b;
+        font-weight: 800;
+        font-size: 1.15rem;
+      }
+      .jadwal-table .reserved {
+        background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        color: #064e3b;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        border-radius: 8px;
+        padding: 0.3em 0.5em;
+      }
+      .jadwal-table .empty {
+        background: #fff;
+        color: #9ca3af;
+      }
+      .jadwal-table .jam-col {
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        color: #064e3b;
+        font-weight: 600;
+        width: 80px;
+      }
+      @media (max-width: 767.98px) {
+        .jadwal-table th,
+        .jadwal-table td {
+          font-size: 0.92rem;
+          padding: 0.4rem 0.2rem;
+        }
+        .jadwal-table .jam-col {
+          width: 60px;
+        }
+      }
+      /* Header modern dan rapi untuk index.html/dashboard.html */
+      header.shadow-sm {
+        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      }
+      header .container-fluid {
+        padding: 0.5rem 1rem;
+      }
+      header .nav-link {
+        border-radius: 6px;
+        transition: background 0.15s, color 0.15s;
+      }
+      header .nav-link:hover,
+      header .nav-link.active {
+        background: #fff !important;
+        color: #059669 !important;
+        font-weight: 700;
+      }
+      @media (max-width: 767.98px) {
+        header .container-fluid {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: flex-start;
+        }
+        header nav ul {
+          gap: 0.5rem;
+        }
+        header .fw-bold.fs-5 {
+          font-size: 1.1rem !important;
+        }
+      }
+      
+      /* Modal Rules & Ketentuan */
+      .rules-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+      }
+      .rules-modal.show {
+        display: flex;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .rules-modal-content {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem 2.5rem;
+        max-width: 600px;
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease;
+        position: relative;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .rules-modal-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #d1fae5;
+      }
+      .rules-modal-header h3 {
+        color: #064e3b;
+        font-weight: 800;
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .rules-modal-header p {
+        color: #065f46;
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .rules-content {
+        color: #064e3b;
+        line-height: 1.8;
+      }
+      .rules-content h4 {
+        color: #10b981;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .rules-content h4:first-child {
+        margin-top: 0;
+      }
+      .rules-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1rem;
+      }
+      .rules-content li {
+        padding: 0.6rem 0;
+        padding-left: 2rem;
+        position: relative;
+        border-bottom: 1px solid #f0fdf4;
+      }
+      .rules-content li:last-child {
+        border-bottom: none;
+      }
+      .rules-content li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+      .rules-content .important {
+        background: #f0fdf4;
+        padding: 1rem;
+        border-radius: 12px;
+        border-left: 4px solid #10b981;
+        margin: 1rem 0;
+      }
+      .rules-modal-footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #d1fae5;
+      }
+      .btn-understand {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0.8rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+      }
+      .btn-understand:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      }
+      @media (max-width: 600px) {
+        .rules-modal-content {
+          padding: 1.5rem 1.2rem;
+          max-height: 90vh;
+        }
+        .rules-modal-header h3 {
+          font-size: 1.4rem;
+        }
+        .rules-content h4 {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header modern dan rapi untuk index.html/dashboard.html -->
+    <header
+      class="shadow-sm"
+        style="
+        background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      "
+    >
+      <div
+        class="container-fluid d-flex align-items-center justify-content-between py-2 px-3 flex-wrap"
+      >
+        <div class="d-flex align-items-center gap-2">
+          <img
+            src="gambar/logo daddies.jpg"
+            alt="Daddies Arena Logo"
+            style="
+              width: 40px;
+              height: 40px;
+              object-fit: contain;
+            "
+          />
+          <span class="fw-bold fs-5 ms-2">Daddies Arena Badminton</span>
+        </div>
+        <nav>
+          <ul
+            class="d-flex gap-3 mb-0 list-unstyled align-items-center"
+            id="navbarMenu"
+          >
+            <li>
+              <a
+                href="index.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="jadwal.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Jadwal</a
+              >
+            </li>
+            <li>
+              <a
+                href="riwayat.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Riwayat</a
+              >
+            </li>
+            <li>
+              <a
+                href="membership.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Membership</a
+              >
+            </li>
+            <li>
+              <a
+                href="about.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                >Tentang Kami</a
+              >
+            </li>
+            <li id="loginLogoutNav">
+              <a
+                href="login.html"
+                class="nav-link text-white fw-semibold px-2 py-1"
+                id="loginLogoutLink"
+                >Login</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <!-- Bagian Hero -->
+      <section class="hero">
+        <div class="hero-content">
+          <h2>Juara Indonesia Lahir di Sini! 🏆</h2>
+          <p>Menjadi juara bisa dicapai dengan kerja keras dan latihan yang konsisten. Tidak cukup hanya melatih teknik namun strength training jangan dilewatkan. Latihan yang seimbang akan menyempurnakan jalanmu menjadi juara.</p>
+          <a href="reservasi.html" class="button">Mulai Reservasi</a>
+        </div>
+      </section>
+
+      <!-- Bagian Jadwal Lapangan -->
+      <section class="schedule">
+        <div
+          class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2"
+        >
+          <h2 class="mb-0">
+            <i class="bi bi-clock-history me-2"></i>Jadwal Lapangan
+          </h2>
+          <a
+            href="jadwal.html"
+            class="btn btn-outline-success px-4"
+            style="font-weight: 600; border-color: #10b981; color: #059669"
+          >
+            Lihat Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </div>
+        <div class="card card-jadwal border-0 shadow-sm mb-4">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table jadwal-table mb-0">
+                <thead>
+                  <tr>
+                    <th class="jam-col">Jam</th>
+                    <th class="lapangan-header">Lapangan 1</th>
+                    <th class="lapangan-header">Lapangan 2</th>
+                    <th class="lapangan-header">Lapangan 3</th>
+                    <th class="lapangan-header">Lapangan 4</th>
+                    <th class="lapangan-header">Lapangan 5</th>
+                    <th class="lapangan-header">Lapangan 6</th>
+                    <th class="lapangan-header">Lapangan 7</th>
+                    <th class="lapangan-header">Lapangan 8</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Jadwal dinamis -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bagian Galeri -->
+      <section class="gallery">
+        <h2><i class="bi bi-images me-2"></i>Galeri</h2>
+        <div class="gallery-images">
+          <img src="gambar/Lap.png" alt="Foto Lapangan 1" />
+          <img src="gambar/Lap.png" alt="Foto Lapangan 2" />
+          <img src="gambar/Lap.png" alt="Foto Lapangan 3" />
+          <img src="gambar/Lap.png" alt="Foto Lapangan 4" />
+        </div>
+      </section>
+
+      <!-- Bagian Fasilitas -->
+      <!-- Ganti section fasilitas dengan simbol/icon yang benar-benar sesuai dengan pernyataannya -->
+      <section class="facilities">
+        <h2><i class="bi bi-trophy me-2"></i>Fasilitas Kami</h2>
+        <div class="container">
+          <div class="row row-cols-2 row-cols-md-3 g-4 justify-content-center">
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-geo-alt-fill"
+                    style="font-size: 2.5rem; color: #10b981"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">
+                  Lokasi Strategis
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-lightbulb-fill"
+                    style="font-size: 2.5rem; color: #facc15"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">
+                  Penerangan Terang
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-wifi"
+                    style="font-size: 2.5rem; color: #34d399"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">
+                  Wi-Fi Gratis
+                </div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-car-front-fill"
+                    style="font-size: 2.5rem; color: #4ade80"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">Parkir Luas</div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-shield-lock-fill"
+                    style="font-size: 2.5rem; color: #059669"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">Keamanan</div>
+              </div>
+            </div>
+            <div class="col d-flex justify-content-center">
+              <div
+                class="text-center p-4 shadow-sm rounded-4 bg-white h-100"
+                style="min-width: 140px"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center mb-2"
+                  style="height: 56px"
+                >
+                  <i
+                    class="bi bi-droplet-half"
+                    style="font-size: 2.5rem; color: #f87171"
+                  ></i>
+                </div>
+                <div style="font-size: 1rem; font-weight: 500">Toilet</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bagian Lokasi -->
+      <section class="map">
+        <h2><i class="bi bi-geo-alt-fill me-2"></i>Lokasi Kami</h2>
+        <p>Kunjungi lokasi kami dengan melihat peta di bawah ini:</p>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.935!2d110.367!3d-7.795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69e5001d4c13c9%3A0xc8f5c82bee371f17!2sDaddies%20Arena!5e0!3m2!1sen!2sid!4v1750333570578!5m2!1sen!2sid"
+          width="100%"
+          height="400"
+          style="border: 0; border-radius: 16px; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+        <div class="mt-3 text-center">
+          <a href="https://www.google.com/maps/place/daddies+arena/data=!4m2!3m1!1s0x2e69e5001d4c13c9:0xc8f5c82bee371f17?sa=X&ved=1t:242&ictx=111" 
+             target="_blank" 
+             class="btn btn-success"
+             style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: none; border-radius: 12px; padding: 0.6rem 1.5rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+            <i class="bi bi-geo-alt-fill"></i> Buka di Google Maps
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p><strong>Alamat:</strong> Jl. Cicentang Pulo, Rw. Buntu, Kec. Serpong, Kota Tangerang Selatan, Banten 15318</p>
+      <p>
+        <strong>Telepon:</strong> +62 811-2645-838 
+      </p>
+      <p>
+        &copy; 2025 Daddies Arena Badminton. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      // Tampilkan modal rules jika user baru login (belum pernah melihat rules di session ini)
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("api/check.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const loginLogoutLink = document.getElementById("loginLogoutLink");
+            if (data.loggedIn) {
+              loginLogoutLink.textContent = "Logout";
+              loginLogoutLink.href = "logout.php";
+              loginLogoutLink.classList.remove("text-white");
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = function () {
+                window.location.href = "logout.php";
+                return false;
+              };
+              
+              // Tampilkan modal rules jika belum pernah ditampilkan di session ini
+              if (!sessionStorage.getItem('rulesShown')) {
+                showRulesModal();
+              }
+            } else {
+              loginLogoutLink.textContent = "Login";
+              loginLogoutLink.href = "login.html";
+              loginLogoutLink.classList.remove("text-danger");
+              loginLogoutLink.classList.add("text-white");
+              loginLogoutLink.onclick = null;
+            }
+          });
+      });
+      
+      // Fungsi untuk menampilkan modal rules
+      function showRulesModal() {
+        const modal = document.createElement('div');
+        modal.className = 'rules-modal show';
+        modal.innerHTML = `
+          <div class="rules-modal-content">
+            <div class="rules-modal-header">
+              <h3>
+                <i class="bi bi-info-circle-fill"></i>
+                Aturan & Ketentuan
+              </h3>
+              <p>Daddies Arena Badminton</p>
+            </div>
+            <div class="rules-content">
+              <h4><i class="bi bi-calendar-check"></i> Ketentuan Reservasi</h4>
+              <ul>
+                <li>Reservasi dapat dilakukan maksimal 7 hari sebelum tanggal yang diinginkan</li>
+                <li>Pembayaran harus dilakukan maksimal 24 jam setelah reservasi dibuat</li>
+                <li>Reservasi akan otomatis dibatalkan jika pembayaran tidak dilakukan dalam waktu yang ditentukan</li>
+                <li>Setiap reservasi berlaku untuk 1 jam penggunaan lapangan</li>
+                <li>Pembatalan reservasi dapat dilakukan maksimal 2 jam sebelum waktu yang dijadwalkan</li>
+              </ul>
+
+              <h4><i class="bi bi-credit-card"></i> Ketentuan Pembayaran</h4>
+              <ul>
+                <li>Pembayaran dilakukan melalui transfer bank ke rekening yang tertera</li>
+                <li>Upload bukti pembayaran wajib dilakukan setelah transfer</li>
+                <li>Verifikasi pembayaran akan dilakukan oleh admin dalam 1x24 jam</li>
+                <li>Reservasi akan dikonfirmasi setelah pembayaran diverifikasi</li>
+                <li>Jika pembayaran tidak valid, reservasi akan dibatalkan dan uang akan dikembalikan</li>
+              </ul>
+
+              <h4><i class="bi bi-clock-history"></i> Ketentuan Penggunaan Lapangan</h4>
+              <ul>
+                <li>Pengguna wajib datang tepat waktu sesuai jadwal yang telah direservasi</li>
+                <li>Keterlambatan lebih dari 15 menit dapat mengakibatkan pembatalan reservasi tanpa pengembalian dana</li>
+                <li>Durasi penggunaan lapangan sesuai dengan waktu yang telah direservasi</li>
+                <li>Perpanjangan waktu dapat dilakukan jika lapangan masih tersedia</li>
+                <li>Pengguna bertanggung jawab atas kerusakan peralatan yang terjadi selama penggunaan</li>
+              </ul>
+
+              <h4><i class="bi bi-shield-check"></i> Aturan Umum</h4>
+              <ul>
+                <li>Pengguna wajib menjaga kebersihan dan ketertiban selama berada di area lapangan</li>
+                <li>Dilarang membawa makanan dan minuman ke dalam area lapangan</li>
+                <li>Penggunaan sepatu non-marking wajib digunakan di lapangan</li>
+                <li>Dilarang merokok di dalam area gedung dan lapangan</li>
+                <li>Pengguna wajib mematuhi protokol kesehatan yang berlaku</li>
+                <li>Dilarang melakukan aktivitas yang dapat merusak fasilitas lapangan</li>
+              </ul>
+
+              <div class="important">
+                <strong><i class="bi bi-exclamation-triangle-fill"></i> Penting:</strong>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.95rem;">
+                  Dengan melanjutkan, Anda menyetujui semua aturan dan ketentuan yang berlaku. 
+                  Pelanggaran terhadap aturan dapat mengakibatkan pembatalan reservasi atau 
+                  penangguhan akun tanpa pemberitahuan lebih lanjut.
+                </p>
+              </div>
+            </div>
+            <div class="rules-modal-footer">
+              <button class="btn-understand" id="btnUnderstandModal">
+                <i class="bi bi-check-circle me-2"></i>Saya Mengerti & Setuju
+              </button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Handle tombol "Saya Mengerti"
+        document.getElementById('btnUnderstandModal').onclick = function() {
+          sessionStorage.setItem('rulesShown', 'true');
+          modal.classList.remove('show');
+          setTimeout(() => {
+            document.body.removeChild(modal);
+          }, 300);
+        };
+        
+        // Tutup modal jika klik di luar area modal
+        modal.onclick = function(e) {
+          if (e.target === modal) {
+            sessionStorage.setItem('rulesShown', 'true');
+            modal.classList.remove('show');
+            setTimeout(() => {
+              document.body.removeChild(modal);
+            }, 300);
+          }
+        };
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const scheduleTable = document.querySelector("table tbody");
+
+        // Ambil tanggal hari ini dalam format YYYY-MM-DD
+        const now = new Date();
+        const today = `${now.getFullYear()}-${String(
+          now.getMonth() + 1
+        ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+        // Fetch schedule berdasarkan tanggal hari ini
+        function fetchSchedule(date) {
+          fetch(`api/jadwal.php?date=${today}`)
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then(err => {
+                  throw new Error(err.error || 'Failed to load schedule');
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              if (!Array.isArray(data)) {
+                throw new Error('Invalid data format');
+              }
+              scheduleTable.innerHTML = "";
+              // Tampilkan baris jam 07:00 sampai 23:00 (hanya yang belum lewat)
+              const now = new Date();
+              const todayStr = `${now.getFullYear()}-${String(
+                now.getMonth() + 1
+              ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+              
+              for (let i = 7; i <= 23; i++) {
+                const jam = `${i.toString().padStart(2, "0")}:00:00`;
+                const slotDateTime = new Date(`${todayStr}T${jam}`);
+                
+                // Skip jika waktu sudah lewat (hanya untuk hari ini)
+                if (slotDateTime < now) {
+                  continue;
+                }
+                
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${jam.slice(0, 5)}</td>
+                <td>${createReserveButton(data, jam, 1)}</td>
+                <td>${createReserveButton(data, jam, 2)}</td>
+                <td>${createReserveButton(data, jam, 3)}</td>
+                <td>${createReserveButton(data, jam, 4)}</td>
+                <td>${createReserveButton(data, jam, 5)}</td>
+                <td>${createReserveButton(data, jam, 6)}</td>
+                <td>${createReserveButton(data, jam, 7)}</td>
+                <td>${createReserveButton(data, jam, 8)}</td>
+              `;
+                scheduleTable.appendChild(row);
+              }
+            })
+            .catch((err) => {
+              scheduleTable.innerHTML = `<tr><td colspan="9" style="color: #e11d48; padding: 1rem;">
+                <i class="bi bi-exclamation-triangle"></i> ${err.message || 'Error loading schedule. Please refresh the page.'}
+              </td></tr>`;
+              console.error('Schedule error:', err);
+            });
+        }
+
+        // Selalu tampilkan jadwal hari ini
+        fetchSchedule(today);
+      });
+
+      // Function to create the Reserve button or display reservation name
+      function createReserveButton(data, jam, court) {
+        // Cari slot reservasi pada data
+        const reservedSlot = data.find(
+          (item) => item.time === jam && item.court == court
+        );
+
+        if (reservedSlot && reservedSlot.reserved) {
+          // Sudah dibooking, tampilkan nama
+          return `<div class="reserved">${reservedSlot.reserved}</div>`;
+        } else {
+          // Belum dibooking, tampilkan tombol booking
+          const now = new Date();
+          const todayStr = `${now.getFullYear()}-${String(
+            now.getMonth() + 1
+          ).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+          return `<a class="reserve-btn" href="reservasi.html?date=${todayStr}&time=${jam}&lapangan=${court}">Booking</a>`;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <style>
+      body.login-page {
+        min-height: 100vh;
+        background-image: url('gambar/backgroud.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+      }
+      body.login-page::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(240, 253, 244, 0.75);
+        z-index: 0;
+      }
+      body.login-page::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+        animation: pulse 6s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(1.1); }
+      }
+      .form-container {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 40px rgba(16, 185, 129, 0.2);
+        padding: 2.5rem 2.2rem 2rem 2.2rem;
+        max-width: 370px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        border: 2px solid rgba(16, 185, 129, 0.1);
+      }
+      .form-container h2 {
+        text-align: center;
+        font-weight: 800;
+        color: #064e3b;
+        margin-bottom: 2rem;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2rem;
+      }
+      .form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+      }
+      .form-container input[type="email"],
+      .form-container input[type="password"] {
+        border-radius: 12px;
+        border: 2px solid #d1fae5;
+        padding: 0.8rem 1.2rem;
+        font-size: 1.08rem;
+        background: #f0fdf4;
+        color: #064e3b;
+        transition: all 0.3s ease;
+      }
+      .form-container input:focus {
+        border-color: #10b981;
+        outline: none;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      }
+      .form-container button[type="submit"] {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        border-radius: 12px;
+        padding: 0.8rem 0;
+        font-size: 1.15rem;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+        margin-top: 0.3rem;
+        letter-spacing: 0.5px;
+      }
+      .form-container button[type="submit"]:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      }
+      #message {
+        margin-top: 10px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1rem;
+        min-height: 1.2em;
+      }
+      .form-container p {
+        text-align: center;
+        margin-top: 1.1rem;
+        font-size: 0.98rem;
+        color: #065f46;
+      }
+      .form-container a {
+        color: #10b981;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .form-container a:hover {
+        color: #059669;
+        text-decoration: underline;
+      }
+      .login-illustration {
+        position: absolute;
+        right: -80px;
+        bottom: -60px;
+        opacity: 0.08;
+        z-index: 0;
+        pointer-events: none;
+        width: 320px;
+        max-width: 60vw;
+        user-select: none;
+      }
+      @media (max-width: 600px) {
+        .form-container {
+          padding: 1.2rem 0.7rem 1rem 0.7rem;
+        }
+        .login-illustration {
+          display: none;
+        }
+      }
+      
+      /* Modal Rules & Ketentuan */
+      .rules-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+      }
+      .rules-modal.show {
+        display: flex;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .rules-modal-content {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem 2.5rem;
+        max-width: 600px;
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease;
+        position: relative;
+      }
+      @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .rules-modal-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #d1fae5;
+      }
+      .rules-modal-header h3 {
+        color: #064e3b;
+        font-weight: 800;
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .rules-modal-header p {
+        color: #065f46;
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .rules-content {
+        color: #064e3b;
+        line-height: 1.8;
+      }
+      .rules-content h4 {
+        color: #10b981;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .rules-content h4:first-child {
+        margin-top: 0;
+      }
+      .rules-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 1rem;
+      }
+      .rules-content li {
+        padding: 0.6rem 0;
+        padding-left: 2rem;
+        position: relative;
+        border-bottom: 1px solid #f0fdf4;
+      }
+      .rules-content li:last-child {
+        border-bottom: none;
+      }
+      .rules-content li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #10b981;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+      .rules-content .important {
+        background: #f0fdf4;
+        padding: 1rem;
+        border-radius: 12px;
+        border-left: 4px solid #10b981;
+        margin: 1rem 0;
+      }
+      .rules-modal-footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid #d1fae5;
+      }
+      .btn-understand {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0.8rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
+      }
+      .btn-understand:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      }
+      @media (max-width: 600px) {
+        .rules-modal-content {
+          padding: 1.5rem 1.2rem;
+          max-height: 90vh;
+        }
+        .rules-modal-header h3 {
+          font-size: 1.4rem;
+        }
+        .rules-content h4 {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="login-page">
+    <div class="form-container position-relative" style="z-index: 1;">
+      <h2>
+        <i class="bi bi-person-circle me-2"></i>Login
+      </h2>
+      <form id="loginForm" autocomplete="on">
+        <input type="email" id="email" placeholder="Email" required autocomplete="email" />
+        <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
+        <button type="submit"><i class="bi bi-box-arrow-in-right me-1"></i>Login</button>
+      </form>
+
+      <p id="message"></p>
+      <p>
+        <i class="bi bi-person-plus"></i>
+        Belum punya akun? <a href="register.html">Daftar di sini</a>
+      </p>
+      <img src="https://cdn.pixabay.com/photo/2016/03/31/19/14/badminton-1294365_1280.png" alt="Login Illustration" class="login-illustration" loading="lazy">
+    </div>
+
+    <!-- Modal Rules & Ketentuan -->
+    <div id="rulesModal" class="rules-modal">
+      <div class="rules-modal-content">
+        <div class="rules-modal-header">
+          <h3>
+            <i class="bi bi-info-circle-fill"></i>
+            Aturan & Ketentuan
+          </h3>
+          <p>Daddies Arena Badminton</p>
+        </div>
+        <div class="rules-content">
+          <h4><i class="bi bi-calendar-check"></i> Ketentuan Reservasi</h4>
+          <ul>
+            <li>Reservasi dapat dilakukan maksimal 7 hari sebelum tanggal yang diinginkan</li>
+            <li>Pembayaran harus dilakukan maksimal 24 jam setelah reservasi dibuat</li>
+            <li>Reservasi akan otomatis dibatalkan jika pembayaran tidak dilakukan dalam waktu yang ditentukan</li>
+            <li>Setiap reservasi berlaku untuk 1 jam penggunaan lapangan</li>
+            <li>Pembatalan reservasi dapat dilakukan maksimal 2 jam sebelum waktu yang dijadwalkan</li>
+          </ul>
+
+          <h4><i class="bi bi-credit-card"></i> Ketentuan Pembayaran</h4>
+          <ul>
+            <li>Pembayaran dilakukan melalui transfer bank ke rekening yang tertera</li>
+            <li>Upload bukti pembayaran wajib dilakukan setelah transfer</li>
+            <li>Verifikasi pembayaran akan dilakukan oleh admin dalam 1x24 jam</li>
+            <li>Reservasi akan dikonfirmasi setelah pembayaran diverifikasi</li>
+            <li>Jika pembayaran tidak valid, reservasi akan dibatalkan dan uang akan dikembalikan</li>
+          </ul>
+
+          <h4><i class="bi bi-clock-history"></i> Ketentuan Penggunaan Lapangan</h4>
+          <ul>
+            <li>Pengguna wajib datang tepat waktu sesuai jadwal yang telah direservasi</li>
+            <li>Keterlambatan lebih dari 15 menit dapat mengakibatkan pembatalan reservasi tanpa pengembalian dana</li>
+            <li>Durasi penggunaan lapangan sesuai dengan waktu yang telah direservasi</li>
+            <li>Perpanjangan waktu dapat dilakukan jika lapangan masih tersedia</li>
+            <li>Pengguna bertanggung jawab atas kerusakan peralatan yang terjadi selama penggunaan</li>
+          </ul>
+
+          <h4><i class="bi bi-shield-check"></i> Aturan Umum</h4>
+          <ul>
+            <li>Pengguna wajib menjaga kebersihan dan ketertiban selama berada di area lapangan</li>
+            <li>Dilarang membawa makanan dan minuman ke dalam area lapangan</li>
+            <li>Penggunaan sepatu non-marking wajib digunakan di lapangan</li>
+            <li>Dilarang merokok di dalam area gedung dan lapangan</li>
+            <li>Pengguna wajib mematuhi protokol kesehatan yang berlaku</li>
+            <li>Dilarang melakukan aktivitas yang dapat merusak fasilitas lapangan</li>
+          </ul>
+
+          <div class="important">
+            <strong><i class="bi bi-exclamation-triangle-fill"></i> Penting:</strong>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.95rem;">
+              Dengan melanjutkan, Anda menyetujui semua aturan dan ketentuan yang berlaku. 
+              Pelanggaran terhadap aturan dapat mengakibatkan pembatalan reservasi atau 
+              penangguhan akun tanpa pemberitahuan lebih lanjut.
+            </p>
+          </div>
+        </div>
+        <div class="rules-modal-footer">
+          <button class="btn-understand" id="btnUnderstand">
+            <i class="bi bi-check-circle me-2"></i>Saya Mengerti & Setuju
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch("api/login.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+          });
+
+          // Cek apakah response adalah JSON
+          let data;
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+          } else {
+            const text = await response.text();
+            throw new Error('Server returned non-JSON response: ' + text.substring(0, 100));
+          }
+
+          if (response.ok && data.success) {
+            message.style.color = "#22c55e";
+            message.textContent = data.message || "Login berhasil!";
+
+            // Tampilkan modal rules & ketentuan
+            const rulesModal = document.getElementById("rulesModal");
+            const btnUnderstand = document.getElementById("btnUnderstand");
+            let redirectUrl = "";
+            
+            // Tentukan URL redirect berdasarkan role
+            if (data.user && data.user.role === "admin") {
+              redirectUrl = "dashboard.html";
+            } else {
+              redirectUrl = "index.html";
+            }
+            
+            // Tampilkan modal
+            rulesModal.classList.add("show");
+            
+            // Handle tombol "Saya Mengerti"
+            btnUnderstand.onclick = function() {
+              // Simpan di sessionStorage bahwa user sudah melihat rules
+              sessionStorage.setItem('rulesShown', 'true');
+              rulesModal.classList.remove("show");
+              // Redirect setelah modal ditutup
+              setTimeout(() => {
+                window.location.href = redirectUrl;
+              }, 300);
+            };
+            
+            // Tutup modal jika klik di luar area modal
+            rulesModal.onclick = function(e) {
+              if (e.target === rulesModal) {
+                sessionStorage.setItem('rulesShown', 'true');
+                rulesModal.classList.remove("show");
+                setTimeout(() => {
+                  window.location.href = redirectUrl;
+                }, 300);
+              }
+            };
+          } else {
+            message.style.color = "#e11d48";
+            message.textContent = data.error || "Login gagal";
+          }
+        } catch (error) {
+          message.style.color = "#e11d48";
+          if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            message.textContent = 'Tidak dapat terhubung ke server. Pastikan server PHP berjalan (XAMPP/WAMP).';
+          } else if (error.message.includes('non-JSON')) {
+            message.textContent = 'Server error. Periksa konfigurasi database di api/db.php';
+          } else {
+            message.textContent = 'Terjadi kesalahan: ' + error.message;
+          }
+          console.error('Login error:', error);
+        }
+      });
+    </script>

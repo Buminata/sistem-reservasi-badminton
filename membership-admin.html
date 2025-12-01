@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Membership Management - Daddies Arena Badminton</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    body { 
+      background-image: url('gambar/backgroud.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(240, 253, 244, 0.85);
+      z-index: -1;
+    }
+    .navbar-custom {
+      background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+      color: #fff;
+      z-index: 1102;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      border-radius: 0;
+      margin: 0;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25);
+      height: 64px;
+      min-height: 64px;
+      max-height: 64px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar {
+      background: linear-gradient(180deg, #10b981 0%, #059669 50%, #047857 100%);
+      color: #fff;
+      height: 100vh;
+      width: 260px;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      z-index: 1200;
+      padding: 2rem 1rem 1rem 1rem;
+      display: block;
+      transition: none;
+    }
+    .sidebar .nav-link {
+      color: #fff;
+      font-weight: 500;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s, color 0.15s;
+      font-size: 1rem;
+    }
+    .sidebar .nav-link.active, .sidebar .nav-link:hover {
+      background: rgba(255,255,255,0.18);
+      color: #059669;
+      font-weight: 600;
+    }
+    .sidebar .nav-link.logout {
+      background: #fff;
+      color: #003366 !important;
+      margin-top: 18px;
+      border: 1px solid #10b981;
+    }
+    .sidebar .nav-link.logout:hover {
+      background: #d1fae5;
+      color: #10b981 !important;
+    }
+    .main-content {
+      margin-left: 260px;
+      width: calc(100vw - 260px);
+      border-radius: 0;
+      padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+      background: #fff;
+      min-height: 100vh;
+      z-index: 1;
+      margin-top: 64px;
+      transition: margin 0.3s;
+      box-shadow: 0 2px 16px rgba(51,153,255,0.04);
+      border-radius: 24px 0 0 0;
+    }
+    .membership-header {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(51,153,255,0.07);
+      padding: 1.5rem 2rem 1.2rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .membership-header h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #064e3b;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .table thead th {
+      color: #059669;
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-bottom: 3px solid #10b981;
+    }
+    .table-hover tbody tr:hover {
+      background: #d1fae5;
+    }
+    .badge-active {
+      background: #10b981;
+      color: #fff;
+      padding: 0.4em 0.8em;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    .badge-expired {
+      background: #ef4444;
+      color: #fff;
+      padding: 0.4em 0.8em;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    .badge-cancelled {
+      background: #6b7280;
+      color: #fff;
+      padding: 0.4em 0.8em;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    .badge-pending {
+      background: #f59e0b;
+      color: #fff;
+      padding: 0.4em 0.8em;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    @media (max-width: 991.98px) {
+      .navbar-custom {
+        height: 56px;
+        min-height: 56px;
+        max-height: 56px;
+      }
+      .sidebar {
+        top: 56px;
+        left: auto;
+        right: 0;
+        width: 80vw;
+        max-width: 320px;
+        min-width: 220px;
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        height: calc(100vh - 56px);
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+        width: 100vw;
+        padding: 1rem 0.5rem;
+        margin-top: 56px;
+      }
+      .membership-header {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    @media (max-width: 767.98px) {
+      .main-content {
+        padding: 0.7rem 0.2rem;
+      }
+      .table-responsive {
+        overflow-x: visible;
+      }
+      .table thead {
+        display: none;
+      }
+      .table tbody tr {
+        display: block;
+        margin-bottom: 1rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+      }
+      .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 0.5rem;
+        border: none;
+        border-bottom: 1px solid #f3f4f6;
+        text-align: left !important;
+      }
+      .table tbody td:last-child {
+        border-bottom: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #064e3b;
+        margin-right: 1rem;
+        flex-shrink: 0;
+      }
+      .table .btn {
+        font-size: 0.9rem;
+        padding: 0.5em 1em;
+        min-width: 44px;
+        min-height: 44px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-custom shadow-sm px-3 py-2 position-fixed">
+    <div class="container-fluid d-flex align-items-center justify-content-between position-relative">
+      <div class="d-flex align-items-center gap-2">
+        <img src="gambar/logo daddies.jpg" alt="Daddies Arena Logo" style="width:40px; height:40px; object-fit:contain;">
+        <span class="fw-bold fs-5 ms-2">Admin Panel</span>
+      </div>
+      <button class="btn btn-light d-lg-none" id="sidebarToggle" type="button">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </nav>
+  
+  <nav class="sidebar" id="sidebarMenu">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="dashboard.html">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="jadwal-admin.html">
+          <i class="bi bi-clock-history"></i> Jadwal Lapangan
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="reservasi-admin.html">
+          <i class="bi bi-calendar-check"></i> Data Reservasi
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="user-admin.html">
+          <i class="bi bi-people"></i> Data Pengguna
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="membership-admin.html">
+          <i class="bi bi-star-fill"></i> Membership
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link logout" href="logout.php">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <div class="main-content">
+    <div class="membership-header">
+      <h3>
+        <i class="bi bi-star-fill" style="color: #facc15;"></i>
+        Manajemen Membership
+      </h3>
+    </div>
+    
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Hari</th>
+                <th>Jam</th>
+                <th>Lapangan</th>
+                <th>Tanggal Mulai</th>
+                <th>Tanggal Berakhir</th>
+                <th>Harga</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="membershipTableBody">
+              <tr>
+                <td colspan="11" class="text-center">Memuat data...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', function() {
+        sidebarMenu.classList.toggle('show');
+      });
+    }
+    
+    // Cek admin login
+    fetch('api/check.php')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.loggedIn || data.role !== 'admin') {
+          window.location.href = 'login.html';
+        } else {
+          loadMemberships();
+        }
+      });
+    
+    function loadMemberships() {
+      fetch('api/membership.php')
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.getElementById('membershipTableBody');
+          
+          if (!data || data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="11" class="text-center">Tidak ada data membership</td></tr>';
+            return;
+          }
+          
+          tbody.innerHTML = data.map((item, index) => {
+            const isActive = item.status === 'active' && new Date(item.tanggal_berakhir) >= new Date();
+            const isPending = item.status === 'pending';
+            const statusClass = item.status === 'active' && isActive ? 'badge-active' : 
+                               item.status === 'pending' ? 'badge-pending' :
+                               item.status === 'expired' ? 'badge-expired' : 'badge-cancelled';
+            const statusText = item.status === 'active' && isActive ? 'Aktif' : 
+                             item.status === 'pending' ? 'Menunggu Konfirmasi' :
+                             item.status === 'expired' ? 'Kedaluwarsa' : 'Dibatalkan';
+            
+            return `
+              <tr>
+                <td data-label="No">${index + 1}</td>
+                <td data-label="Username">${item.username || '-'}</td>
+                <td data-label="Email">${item.email || '-'}</td>
+                <td data-label="Hari">${item.hari || '-'}</td>
+                <td data-label="Jam">${item.jam ? item.jam.substring(0, 5) : '-'}</td>
+                <td data-label="Lapangan">${item.lapangan || '-'}</td>
+                <td data-label="Tanggal Mulai">${new Date(item.tanggal_mulai).toLocaleDateString('id-ID')}</td>
+                <td data-label="Tanggal Berakhir">${new Date(item.tanggal_berakhir).toLocaleDateString('id-ID')}</td>
+                <td data-label="Harga">Rp ${Number(item.harga_membership || 0).toLocaleString('id-ID')}</td>
+                <td data-label="Status"><span class="${statusClass}">${statusText}</span></td>
+                <td data-label="Aksi">
+                  ${isPending ? `
+                    <button class="btn btn-sm btn-primary me-1" onclick="confirmMembership(${item.membership_id})" title="Konfirmasi Membership">
+                      <i class="bi bi-check-circle"></i> Konfirmasi
+                    </button>
+                    ${item.bukti_pembayaran ? `
+                      <button class="btn btn-sm btn-info me-1" onclick="viewBukti('${item.bukti_pembayaran}')" title="Lihat Bukti Pembayaran">
+                        <i class="bi bi-image"></i>
+                      </button>
+                    ` : ''}
+                  ` : ''}
+                  <button class="btn btn-sm btn-success me-1" onclick="setSchedule(${item.membership_id}, ${item.user_id}, '${item.username || ''}')" title="Set Jadwal" ${item.status !== 'active' || new Date(item.tanggal_berakhir) < new Date() ? 'disabled' : ''}>
+                    <i class="bi bi-calendar-plus"></i>
+                  </button>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Ubah Status">
+                      <i class="bi bi-pencil"></i> Status
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#" onclick="changeStatus(${item.membership_id}, 'active', '${item.status}'); return false;"><i class="bi bi-check-circle text-success"></i> Set Active</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="changeStatus(${item.membership_id}, 'expired', '${item.status}'); return false;"><i class="bi bi-clock-history text-warning"></i> Set Expired</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="changeStatus(${item.membership_id}, 'cancelled', '${item.status}'); return false;"><i class="bi bi-x-circle text-danger"></i> Set Cancelled</a></li>
+                    </ul>
+                  </div>
+                  <button class="btn btn-sm btn-danger ms-1" onclick="deleteMembership(${item.membership_id}, '${item.username || ''}')" title="Hapus">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join('');
+        })
+        .catch(error => {
+          console.error('Error loading memberships:', error);
+          document.getElementById('membershipTableBody').innerHTML = 
+            '<tr><td colspan="11" class="text-center text-danger">Error memuat data</td></tr>';
+        });
+    }
+    
+    function confirmMembership(membershipId) {
+      if (!confirm('Konfirmasi membership ini? Status akan diubah menjadi aktif, user akan menjadi member, dan jadwal reservasi otomatis akan dibuat untuk 4 minggu ke depan.')) {
+        return;
+      }
+      
+      fetch('api/membership.php', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          membership_id: membershipId,
+          status: 'active'
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('Membership berhasil dikonfirmasi!\n\nUser sekarang menjadi member aktif.\nJadwal reservasi otomatis telah dibuat untuk 4 minggu ke depan sesuai dengan hari, jam, dan lapangan yang dipilih saat registrasi membership.');
+          loadMemberships();
+        } else {
+          alert('Error: ' + (data.error || 'Gagal mengkonfirmasi membership'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan');
+      });
+    }
+    
+    function viewBukti(buktiPath) {
+      const modalBg = document.createElement('div');
+      modalBg.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 9999; display: flex; align-items: center; justify-content: center;';
+      
+      const modalBox = document.createElement('div');
+      modalBox.style.cssText = 'background: #fff; border-radius: 16px; padding: 1.5rem; max-width: 90vw; max-height: 90vh; position: relative;';
+      modalBox.innerHTML = `
+        <button class="btn-close" onclick="this.closest('div').parentElement.remove()" style="position: absolute; top: 10px; right: 10px;"></button>
+        <h5 class="mb-3" style="color: #064e3b;">Bukti Pembayaran</h5>
+        <img src="api/${buktiPath}" alt="Bukti Pembayaran" style="max-width: 100%; max-height: 80vh; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+      `;
+      
+      modalBg.appendChild(modalBox);
+      document.body.appendChild(modalBg);
+      
+      modalBg.onclick = function(e) {
+        if (e.target === modalBg) {
+          document.body.removeChild(modalBg);
+        }
+      };
+    }
+    
+    function changeStatus(membershipId, newStatus, currentStatus) {
+      if (newStatus === currentStatus) {
+        alert('Status sudah ' + newStatus);
+        return;
+      }
+      
+      const statusText = {
+        'active': 'aktif',
+        'expired': 'kedaluwarsa',
+        'cancelled': 'dibatalkan'
+      };
+      
+      if (!confirm(`Ubah status membership menjadi ${statusText[newStatus] || newStatus}?`)) {
+        return;
+      }
+      
+      fetch('api/membership.php', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          membership_id: membershipId,
+          status: newStatus
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          let message = 'Status membership berhasil diubah menjadi ' + (statusText[newStatus] || newStatus);
+          if (newStatus === 'active') {
+            message += '\n\nJadwal reservasi otomatis telah dibuat untuk 4 minggu ke depan sesuai dengan hari, jam, dan lapangan yang dipilih saat registrasi membership.';
+          }
+          alert(message);
+          loadMemberships();
+        } else {
+          alert('Error: ' + (data.error || 'Gagal mengubah status'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan');
+      });
+    }
+    
+    function deleteMembership(membershipId, username) {
+      if (!confirm(`Hapus membership untuk ${username}? Tindakan ini tidak dapat dibatalkan!`)) {
+        return;
+      }
+      
+      fetch('api/membership.php', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          membership_id: membershipId
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('Membership berhasil dihapus');
+          loadMemberships();
+        } else {
+          alert('Error: ' + (data.error || 'Gagal menghapus membership'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan');
+      });
+    }
+    
+    function setSchedule(membershipId, userId, username) {
+      // Modal untuk set jadwal
+      const modalBg = document.createElement('div');
+      modalBg.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;';
+      
+      const modalBox = document.createElement('div');
+      modalBox.style.cssText = 'background: #fff; border-radius: 16px; padding: 2rem; min-width: 400px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.2);';
+      modalBox.innerHTML = `
+        <h4 class="mb-3" style="color: #064e3b; font-weight: 700;">
+          <i class="bi bi-calendar-plus me-2" style="color: #10b981;"></i>
+          Set Jadwal Member
+        </h4>
+        <p class="text-muted mb-3">Member: <strong>${username}</strong></p>
+        <p class="text-muted mb-3 small">Sistem akan membuat 4 reservasi otomatis (1x setiap minggu) dengan hari dan jam yang sama.</p>
+        
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Hari <span class="text-danger">*</span></label>
+          <select id="scheduleHari" class="form-select">
+            <option value="">Pilih Hari</option>
+            <option value="Senin">Senin</option>
+            <option value="Selasa">Selasa</option>
+            <option value="Rabu">Rabu</option>
+            <option value="Kamis">Kamis</option>
+            <option value="Jumat">Jumat</option>
+            <option value="Sabtu">Sabtu</option>
+            <option value="Minggu">Minggu</option>
+          </select>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Jam <span class="text-danger">*</span></label>
+          <input type="time" id="scheduleJam" class="form-control" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Lapangan <span class="text-danger">*</span></label>
+          <select id="scheduleLapangan" class="form-select">
+            <option value="">Pilih Lapangan</option>
+            <option value="Lapangan 1">Lapangan 1</option>
+            <option value="Lapangan 2">Lapangan 2</option>
+            <option value="Lapangan 3">Lapangan 3</option>
+            <option value="Lapangan 4">Lapangan 4</option>
+            <option value="Lapangan 5">Lapangan 5</option>
+            <option value="Lapangan 6">Lapangan 6</option>
+            <option value="Lapangan 7">Lapangan 7</option>
+            <option value="Lapangan 8">Lapangan 8</option>
+          </select>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Nama Reservasi (Opsional)</label>
+          <input type="text" id="scheduleNama" class="form-control" placeholder="Reservasi Member" value="Reservasi Member">
+        </div>
+        
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button id="btnSetScheduleOk" class="btn btn-success px-4">
+            <i class="bi bi-check-circle me-1"></i>Set Jadwal
+          </button>
+          <button id="btnSetScheduleCancel" class="btn btn-outline-secondary px-4">Batal</button>
+        </div>
+      `;
+      
+      modalBg.appendChild(modalBox);
+      document.body.appendChild(modalBg);
+      
+      document.getElementById('btnSetScheduleOk').onclick = function() {
+        const hari = document.getElementById('scheduleHari').value;
+        const jam = document.getElementById('scheduleJam').value;
+        const lapangan = document.getElementById('scheduleLapangan').value;
+        const nama = document.getElementById('scheduleNama').value || 'Reservasi Member';
+        
+        if (!hari || !jam || !lapangan) {
+          alert('Harap lengkapi semua field yang wajib!');
+          return;
+        }
+        
+        if (!confirm(`Set jadwal untuk ${username}?\nHari: ${hari}\nJam: ${jam}\nLapangan: ${lapangan}\n\nSistem akan membuat 4 reservasi otomatis.`)) {
+          return;
+        }
+        
+        // Disable button
+        this.disabled = true;
+        this.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Memproses...';
+        
+        fetch('api/membership.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            action: 'set_schedule',
+            membership_id: membershipId,
+            hari: hari,
+            jam: jam,
+            lapangan: lapangan,
+            nama_reservasi: nama
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.body.removeChild(modalBg);
+          if (data.success) {
+            alert(`Jadwal berhasil diset!\n${data.count} reservasi telah dibuat dengan status "Dikonfirmasi".`);
+            loadMemberships();
+          } else {
+            alert('Error: ' + (data.error || 'Gagal set jadwal'));
+          }
+        })
+        .catch(error => {
+          document.body.removeChild(modalBg);
+          console.error('Error:', error);
+          alert('Terjadi kesalahan saat set jadwal');
+        });
+      };
+      
+      document.getElementById('btnSetScheduleCancel').onclick = function() {
+        document.body.removeChild(modalBg);
+      };
+      
+      // Close on background click
+      modalBg.onclick = function(e) {
+        if (e.target === modalBg) {
+          document.body.removeChild(modalBg);
+        }
+      };
+    }
+    
+    function cancelMembership(membershipId) {
+      if (!confirm('Apakah Anda yakin ingin membatalkan membership ini?')) {
+        return;
+      }
+      
+      fetch('api/membership.php', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          membership_id: membershipId
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('Membership berhasil dibatalkan');
+          loadMemberships();
+        } else {
+          alert('Error: ' + (data.error || 'Gagal membatalkan membership'));
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan');
+      });
+    }
+    
+    // Refresh setiap 30 detik
+    setInterval(loadMemberships, 30000);
+  </script>
+  <script src="js/notification-system.js"></script>
+</body>
+</html>
+

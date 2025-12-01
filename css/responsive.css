@@ -1,0 +1,111 @@
+/* Global Responsive Styles untuk semua device */
+
+/* Touch Target - Minimal 44x44px untuk mobile */
+@media (max-width: 767.98px) {
+  button, .btn, a.btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.6rem 1rem;
+  }
+  
+  /* Prevent zoom on iOS saat focus input */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  
+  /* Modal responsive */
+  .modal-content {
+    margin: 1rem !important;
+    padding: 1.5rem !important;
+    max-width: calc(100vw - 2rem) !important;
+    max-height: calc(100vh - 2rem) !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Form spacing */
+  .form-group, .mb-3 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Better spacing untuk mobile */
+  .container, .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Table card view helper */
+  .table-mobile-card thead {
+    display: none;
+  }
+  
+  .table-mobile-card tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .table-mobile-card tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border: none;
+    border-bottom: 1px solid #f3f4f6;
+    text-align: left !important;
+  }
+  
+  .table-mobile-card tbody td:last-child {
+    border-bottom: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .table-mobile-card tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #064e3b;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .container, .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sidebar, .navbar, header, footer, .btn, button {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+}
+

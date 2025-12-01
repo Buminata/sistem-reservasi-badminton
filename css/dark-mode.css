@@ -1,0 +1,288 @@
+/**
+ * Dark Mode Styles
+ * Auto-activated dari 18:00 - 06:59
+ */
+
+/* Base Dark Mode Variables */
+:root.dark-mode {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3a3a3a;
+    --text-primary: #e5e5e5;
+    --text-secondary: #b0b0b0;
+    --text-muted: #888;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --overlay-bg: rgba(0, 0, 0, 0.7);
+}
+
+/* Light Mode Variables (default) */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #e9ecef;
+    --text-primary: #212529;
+    --text-secondary: #495057;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
+/* Body & HTML */
+.dark-mode body,
+body.dark-mode {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Headers */
+.dark-mode header,
+.dark-mode .navbar,
+.dark-mode .navbar-custom {
+    background: linear-gradient(135deg, #0d4f3c 0%, #052e22 50%, #001a12 100%) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Cards */
+.dark-mode .card,
+.dark-mode .membership-card,
+.dark-mode .status-card {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 4px 16px var(--shadow-color) !important;
+}
+
+/* Tables */
+.dark-mode .table,
+.dark-mode table {
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .table thead th,
+.dark-mode table thead th {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode .table tbody tr,
+.dark-mode table tbody tr {
+    background: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode .table tbody tr:hover,
+.dark-mode table tbody tr:hover {
+    background: var(--bg-tertiary) !important;
+}
+
+.dark-mode .table td,
+.dark-mode .table th,
+.dark-mode table td,
+.dark-mode table th {
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Forms */
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea,
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode input:focus,
+.dark-mode select:focus,
+.dark-mode textarea:focus,
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25) !important;
+}
+
+.dark-mode label {
+    color: var(--text-primary) !important;
+}
+
+/* Buttons */
+.dark-mode .btn-primary,
+.dark-mode .btn-success,
+.dark-mode .btn-join,
+.dark-mode .reserve-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+    color: #fff !important;
+    border-color: #059669 !important;
+}
+
+.dark-mode .btn-primary:hover,
+.dark-mode .btn-success:hover,
+.dark-mode .btn-join:hover,
+.dark-mode .reserve-btn:hover {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4) !important;
+}
+
+.dark-mode .btn-outline-secondary,
+.dark-mode .btn-secondary {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode .btn-outline-secondary:hover,
+.dark-mode .btn-secondary:hover {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Modals */
+.dark-mode .modal-content {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode .modal-backdrop {
+    background: var(--overlay-bg) !important;
+}
+
+/* Sidebar */
+.dark-mode .sidebar {
+    background: linear-gradient(180deg, #0d4f3c 0%, #052e22 50%, #001a12 100%) !important;
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .sidebar .nav-link {
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .sidebar .nav-link:hover,
+.dark-mode .sidebar .nav-link.active {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #10b981 !important;
+}
+
+/* Main Content */
+.dark-mode .main-content {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Text Colors */
+.dark-mode .text-muted {
+    color: var(--text-muted) !important;
+}
+
+.dark-mode .text-primary {
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+/* Badges */
+.dark-mode .badge-active {
+    background: #10b981 !important;
+    color: #fff !important;
+}
+
+.dark-mode .badge-pending {
+    background: #f59e0b !important;
+    color: #fff !important;
+}
+
+.dark-mode .badge-expired,
+.dark-mode .badge-cancelled {
+    background: #ef4444 !important;
+    color: #fff !important;
+}
+
+/* Reserved/Booked slots */
+.dark-mode .reserved {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Background Images Overlay */
+.dark-mode body::before {
+    background: rgba(0, 0, 0, 0.85) !important;
+}
+
+/* Footer */
+.dark-mode footer {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+/* Links */
+.dark-mode a {
+    color: #10b981 !important;
+}
+
+.dark-mode a:hover {
+    color: #059669 !important;
+}
+
+/* Dropdown */
+.dark-mode .dropdown-menu {
+    background: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+}
+
+.dark-mode .dropdown-item {
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .dropdown-item:hover {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Toast/Notifications */
+.dark-mode .toast-message {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Schedule Table Specific */
+.dark-mode .jadwal-table th {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .jadwal-table td {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.dark-mode .jadwal-table .reserved {
+    background: #1a4d3a !important;
+    color: #a7f3d0 !important;
+}
+
+/* Rekening Box */
+.dark-mode .rekening-box {
+    background: var(--bg-tertiary) !important;
+    border-color: #10b981 !important;
+    color: var(--text-primary) !important;
+}
+
+/* Loading Spinner */
+.dark-mode .spinner-border {
+    border-color: var(--text-muted) !important;
+    border-right-color: #10b981 !important;
+}
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <style>
+    body.register-page {
+      min-height: 100vh;
+      background-image: url('gambar/backgroud.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+    body.register-page::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(240, 253, 244, 0.75);
+      z-index: 0;
+    }
+    body.register-page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+    }
+    .form-container {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 8px 40px rgba(16, 185, 129, 0.2);
+      padding: 2.5rem 2.2rem 2rem 2.2rem;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      border: 2px solid rgba(16, 185, 129, 0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      font-weight: 800;
+      color: #064e3b;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 2rem;
+    }
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="password"] {
+      border-radius: 12px;
+      border: 2px solid #d1fae5;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.08rem;
+      background: #f0fdf4;
+      color: #064e3b;
+      transition: all 0.3s ease;
+    }
+    .form-container input:focus {
+      border-color: #10b981;
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    .form-container button[type="submit"] {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      padding: 0.8rem 0;
+      font-size: 1.15rem;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+      transition: all 0.3s ease;
+      margin-top: 0.3rem;
+      letter-spacing: 0.5px;
+    }
+    .form-container button[type="submit"]:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    }
+    #message {
+      margin-top: 10px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 1rem;
+      min-height: 1.2em;
+    }
+    .form-container p {
+      text-align: center;
+      margin-top: 1.1rem;
+      font-size: 0.98rem;
+      color: #065f46;
+    }
+    .form-container a {
+      color: #10b981;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .form-container a:hover {
+      color: #059669;
+      text-decoration: underline;
+    }
+    .register-illustration {
+      position: absolute;
+      right: -80px;
+      bottom: -60px;
+      opacity: 0.08;
+      z-index: 0;
+      pointer-events: none;
+      width: 320px;
+      max-width: 60vw;
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+      }
+      .register-illustration {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body class="register-page">
+    <div class="form-container position-relative" style="z-index: 1;">
+    <h2>
+      <i class="bi bi-person-plus me-2"></i>Register
+    </h2>
+    <form id="registerForm" autocomplete="on">
+      <input type="text" id="username" placeholder="Username" required autocomplete="username" />
+      <input type="email" id="email" placeholder="Email" required autocomplete="email" />
+      <input type="text" id="no_tlp" placeholder="No. Telepon" autocomplete="tel" />
+      <input type="password" id="password" placeholder="Password (min. 6 karakter)" required minlength="6" autocomplete="new-password" />
+      <button type="submit"><i class="bi bi-person-check me-1"></i>Register</button>
+    </form>
+    <p>Sudah punya akun? <a href="login.html">Login di sini</a></p>
+    <p id="message"></p>
+    <img src="https://cdn.pixabay.com/photo/2016/03/31/19/14/badminton-1294365_1280.png" alt="Register Illustration" class="register-illustration" loading="lazy">
+  </div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Ambil nilai dari input form
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const no_tlp = document.getElementById('no_tlp').value.trim();
+      const password = document.getElementById('password').value;
+      const role = false;  // default role false (user biasa)
+
+      try {
+        // Kirim data ke backend API menggunakan AJAX (fetch)
+        const response = await fetch('api/register.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, no_tlp, role, password })
+        });
+
+        // Cek apakah response adalah JSON
+        let data;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          data = await response.json();
+        } else {
+          const text = await response.text();
+          throw new Error('Server returned non-JSON response: ' + text.substring(0, 100));
+        }
+
+        // Menampilkan pesan sesuai hasil dari server
+        if (response.ok && data.success) {
+          message.style.color = '#22c55e';
+          message.textContent = data.message || 'Pendaftaran berhasil!';
+          
+          // Redirect ke login setelah 2 detik
+          setTimeout(() => {
+            window.location.href = 'login.html';  // Redirect ke halaman login
+          }, 2000);
+        } else {
+          message.style.color = '#e11d48';
+          message.textContent = data.error || 'Registrasi gagal';
+        }
+      } catch (error) {
+        message.style.color = '#e11d48';
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+          message.textContent = 'Tidak dapat terhubung ke server. Pastikan server PHP berjalan (XAMPP/WAMP).';
+        } else if (error.message.includes('non-JSON')) {
+          message.textContent = 'Server error. Periksa konfigurasi database di api/db.php';
+        } else {
+          message.textContent = 'Terjadi kesalahan: ' + error.message;
+        }
+        console.error('Register error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
