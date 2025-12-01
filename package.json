@@ -1,0 +1,9 @@
+{
+  "name": "sistem-reservasi-badminton",
+  "version": "1.0.0",
+  "description": "Sistem Reservasi Lapangan Badminton - Daddies Arena",
+  "engines": {
+    "node": "20.x"
+  }
+}
+
