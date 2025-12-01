@@ -1,0 +1,12 @@
+# Ignore files yang tidak perlu di-deploy
+node_modules/
+.git/
+.vscode/
+.idea/
+*.log
+*.cache
+.env
+.env.local
+api/uploads/*
+!api/uploads/.gitkeep
+

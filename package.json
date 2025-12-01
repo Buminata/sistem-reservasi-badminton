@@ -4,6 +4,21 @@
   "description": "Sistem Reservasi Lapangan Badminton - Daddies Arena",
   "engines": {
     "node": "20.x"
-  }
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Buminata/sistem-reservasi-badminton.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Buminata/sistem-reservasi-badminton/issues"
+  },
+  "homepage": "https://github.com/Buminata/sistem-reservasi-badminton#readme"
 }
-
