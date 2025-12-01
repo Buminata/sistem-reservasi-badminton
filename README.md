@@ -149,7 +149,7 @@ Project ini adalah open source dan tersedia di bawah lisensi MIT.
 
 ## 👨‍💻 Developer
 
-Dikembangkan oleh **DzakaAl**
+Dikembangkan oleh **Buminata**
 
 - GitHub: [@Buminata](https://github.com/buminata)
 - Repository: [Daddies-Arena-Badminton](https://github.com/buminata/sistem-reservasi-badminton)
